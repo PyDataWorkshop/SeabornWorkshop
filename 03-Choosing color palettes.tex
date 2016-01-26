@@ -12,7 +12,11 @@ Page
 
 Choosing color palettes
 Color is more important than other aspects of figure style because color can reveal patterns in the data if used effectively or hide those patterns if used poorly. There are a number of great resources to learn about good techniques for using color in visualizations, I am partial to this series of blog posts from Rob Simmon and this more technical paper. The matplotlib docs also now have a nice tutorial that illustrates some of the perceptual properties of the built in colormaps.
-
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+\frametitle{Seaborn Workshop}
+\large
 Seaborn makes it easy to select and use color palettes that are suited to the kind of data you are working with and the goals you have in visualizing it.
 
 %matplotlib inline
@@ -31,7 +35,11 @@ Building color palettes with color_palette()
 The most important function for working with discrete color palettes is color_palette(). This function provides an interface to many (though not all) of the possible ways you can generate colors in seaborn, and it’s used internally by any function that has a palette argument (and in some cases for a color argument when multiple colors are needed).
 
 color_palette() will accept the name of any seaborn palette or matplotlib colormap (except jet, which you should never use). It can also take a list of colors specified in any valid matplotlib format (RGB tuples, hex color codes, or HTML color names). The return value is always a list of RGB tuples.
-
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+\frametitle{Seaborn Workshop}
+\large
 Finally, calling color_palette() with no arguments will return the current default color cycle.
 
 A corresponding function, set_palette(), takes the same arguments and will set the default color cycle for all plots. You can also use color_palette() in a with statement to temporarily change the default palette (see below).
@@ -69,7 +77,11 @@ There is also the hls_palette() function that lets you control the lightness and
 
 sns.palplot(sns.hls_palette(8, l=.3, s=.8))
 ../_images/color_palettes_12_0.png
-However, because of the way the human visual system works, colors that are even “intensity” in terms of their RGB levels won’t necessarily look equally intense. We perceive yellows and greens as relatively brighter and blues as relatively darker, which can be a problem when aiming for uniformity with the hls system.
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+\frametitle{Seaborn Workshop}
+\largeHowever, because of the way the human visual system works, colors that are even “intensity” in terms of their RGB levels won’t necessarily look equally intense. We perceive yellows and greens as relatively brighter and blues as relatively darker, which can be a problem when aiming for uniformity with the hls system.
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
