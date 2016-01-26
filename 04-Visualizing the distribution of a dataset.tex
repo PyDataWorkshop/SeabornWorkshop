@@ -2,7 +2,9 @@
 Search
 Visualizing the distribution of a dataset
 When dealing with a set of data, often the first thing you’ll want to do is get a sense for how the variables are distributed. This chapter of the tutorial will give a brief introduction to some of the tools in seborn for examining univariate and bivariate distributions. You may also want to look at the categorical plots chapter for examples of functions that make it easy to compare the distribution of a variable across levels of other variables.
-
+\begin{frame}[fragile]
+\begin{framed}
+\begin{verbatim}
 %matplotlib inline
 import numpy as np
 import pandas as pd
@@ -11,9 +13,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set(color_codes=True)
 np.random.seed(sum(map(ord, "distributions")))
-
-
-Plotting univariate distributions
+\end{verbatim}
+\end{framed}
+\end{frame}
+%=============================================================%
+\section{Plotting univariate distributions}
+\begin{frame}[fragile]
 The most convenient way to take a quick look at a univariate distribution in seaborn is the distplot() function. By default, this will draw a histogram and fit a kernel density estimate (KDE).
 
 x = np.random.normal(size=100)
@@ -35,7 +40,14 @@ The kernel density estimate may be less familiar, but it can be a useful tool fo
 
 sns.distplot(x, hist=False, rug=True);
 ../_images/distributions_14_0.png
+\end{frame}
+%============================================================%
+\begin{frame}[fragile]
 Drawing a KDE is more computationally involved than drawing a histogram. What happens is that each observation is first replaced with a normal (Gaussian) curve centered at that value:
+
+\begin{frame}[fragile]
+\begin{framed}
+\begin{verbatim}
 
 x = np.random.normal(0, 1, size=30)
 bandwidth = 1.06 * x.std() * x.size ** (-1 / 5.)
@@ -48,6 +60,10 @@ for x_i in x:
     kernels.append(kernel)
     plt.plot(support, kernel, color="r")
 
+\end{verbatim}
+\end{framed}
+\end{frame}
+%=============================================================%
 sns.rugplot(x, color=".2", linewidth=3);
 ../_images/distributions_16_0.png
 Next, these curves are summed to compute the value of the density at each point in the support grid. The resulting curve is then normalized so that the area under it is equal to 1:
@@ -72,19 +88,28 @@ As you can see above, the nature of the Gaussian KDE process means that estimati
 sns.kdeplot(x, shade=True, cut=0)
 sns.rugplot(x);
 ../_images/distributions_24_0.png
+
+\end{frame}
+\section{Fitting parametric distributions}
+%============================================================%
+\begin{frame}[fragile]
 Fitting parametric distributions
 You can also use distplot() to fit a parametric distribution to a dataset and visually evaluate how closely it corresponds to the observed data:
 
 x = np.random.gamma(6, size=200)
 sns.distplot(x, kde=False, fit=stats.gamma);
 ../_images/distributions_26_0.png
-Plotting bivariate distributions
+
+\section{Plotting bivariate distributions}
+\begin{frame}
 It can also be useful to visualize a bivariate distribution of two variables. The easiest way to do this in seaborn is to just the jointplot() function, which creates a multi-panel figure that shows both the bivariate (or joint) relationship between two variables along with the univariate (or marginal) distribution of each on separate axes.
 
 mean, cov = [0, 1], [(1, .5), (.5, 1)]
 data = np.random.multivariate_normal(mean, cov, 200)
 df = pd.DataFrame(data, columns=["x", "y"])
-Scatterplots
+\end{frame}
+%==============================================================%
+\subsection{Scatterplots}
 The most familiar way to visualize a bivariate distribution is a scatterplot, where each observation is shown with point at the x and y values. This is analgous to a rug plot on two dimensions. You can draw a scatterplot with the matplotlib plt.scatter function, and it is also the default kind of plot shown by the jointplot() function:
 
 sns.jointplot(x="x", y="y", data=df);
@@ -114,6 +139,8 @@ f, ax = plt.subplots(figsize=(6, 6))
 cmap = sns.cubehelix_palette(as_cmap=True, dark=0, light=1, reverse=True)
 sns.kdeplot(df.x, df.y, cmap=cmap, n_levels=60, shade=True);
 ../_images/distributions_38_0.png
+
+%==========================================%
 The jointplot() function uses a JointGrid to manage the figure. For more flexibility, you may want to draw your figure by using JointGrid directly. jointplot() returns the JointGrid object after plotting, which you can use to add more layers or to tweak other aspects of the visualization:
 
 g = sns.jointplot(x="x", y="y", data=df, kind="kde", color="m")
@@ -121,12 +148,14 @@ g.plot_joint(plt.scatter, c="w", s=30, linewidth=1, marker="+")
 g.ax_joint.collections[0].set_alpha(0)
 g.set_axis_labels("$X$", "$Y$");
 ../_images/distributions_40_0.png
+%=======================================================================%
 Visualizing pairwise relationships in a dataset
 To plot multiple pairwise bivariate distributions in a dataset, you can use the pairplot() function. This creates a matrix of axes and shows the relationship for each pair of columns in a DataFrame. by default, it also draws the univariate distribution of each variable on the diagonal Axes:
 
 iris = sns.load_dataset("iris")
 sns.pairplot(iris);
 ../_images/distributions_42_0.png
+
 Much like the relationship between jointplot() and JointGrid, the pairplot() function is built on top of a PairGrid object, which can be used directly for more flexibility:
 
 g = sns.PairGrid(iris)
@@ -135,7 +164,4 @@ g.map_offdiag(sns.kdeplot, cmap="Blues_d", n_levels=6);
 /Users/mwaskom/anaconda/lib/python2.7/site-packages/matplotlib/axes/_axes.py:475: UserWarning: No labelled objects found. Use label='...' kwarg on individual plots.
   warnings.warn("No labelled objects found. "
 ../_images/distributions_44_1.png
-Back to top 
-Source
-© Copyright 2012-2015, Michael Waskom.
-Created using Sphinx 1.2.3.
+\end{document}
