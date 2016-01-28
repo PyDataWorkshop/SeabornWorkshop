@@ -1,0 +1,60 @@
+%============================================================%
+\section{Conditioning on other variables}
+\begin{frame}
+The plots above show many ways to explore the relationship between a pair of variables. Often, however, a more interesting question is “how does the relationship between these two variables change as a function of a third variable?” This is where the difference between regplot() and lmplot() appears. While regplot() always shows a single relationsihp, lmplot() combines regplot() with FacetGrid to provide an easy interface to show a linear regression on “faceted” plots that allow you to explore interactions with up to three additional categorical variables.
+\end{frame}
+%===========================================================%
+\begin{frame}[fragile]
+\large
+
+The best way to separate out a relationship is to plot both levels on the same axes and to use color to distinguish them:
+
+sns.lmplot(x="total_bill", y="tip", hue="smoker", data=tips);
+../_images/regression_39_0.png
+In addition to color, it’s possible to use different scatterplot markers to make plots the reproduce to black and white better. You also have full control over the colors used:
+
+sns.lmplot(x="total_bill", y="tip", hue="smoker", data=tips,
+           markers=["o", "x"], palette="Set1");
+../_images/regression_41_0.png
+\end{frame}
+%==============================================%
+\begin{frame}[fragile]
+	\large
+To add another variable, you can draw multiple “facets” which each level of the variable appearing in the rows or columns of the grid:
+
+sns.lmplot(x="total_bill", y="tip", hue="smoker", col="time", data=tips);
+../_images/regression_43_0.png
+sns.lmplot(x="total_bill", y="tip", hue="smoker",
+           col="time", row="sex", data=tips);
+../_images/regression_44_0.png
+\end{frame}
+%=============================================================%
+\section{Controlling the size and shape of the plot}
+\begin{frame}[fragile]
+	\begin{itemize}
+\item Before we noted that the default plots made by regplot() and lmplot() look the same but on axes that have a different size and shape. This is because func:regplot is an “axes-level” function draws onto a specific axes.
+\item  This means that you can make mutli-panel figures yourself and control exactly where the the regression plot goes. 
+\item If no axes is provided, it simply uses the “currently active” axes, which is why the default plot has the same size and shape as most other matplotlib functions. To control the size, you need to create a figure object yourself.
+	\end{itemize}
+
+\end{frame}
+%=========================================%
+\begin{frame}[fragile]
+\begin{framed}
+\begin{verbatim}
+f, ax = plt.subplots(figsize=(5, 6))
+sns.regplot(x="total_bill", y="tip", data=tips, ax=ax);
+\end{verbatim}
+\end{framed}
+../_images/regression_46_0.png
+In contrast, the size and shape of the lmplot() figure is controlled through the FacetGrid interface using the size and aspect parameters, which apply to each facet in the plot, not to the overall figure itself:
+
+sns.lmplot(x="total_bill", y="tip", col="day", data=tips,
+           col_wrap=2, size=3);
+../_images/regression_48_0.png
+sns.lmplot(x="total_bill", y="tip", col="day", data=tips,
+           aspect=.5);
+../_images/regression_49_0.png
+%============================================================%
+\end{fra,e}
+\end{document}

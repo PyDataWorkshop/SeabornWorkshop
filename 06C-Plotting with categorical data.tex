@@ -1,0 +1,105 @@
+\section{Drawing multi-panel categorical plots}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+Drawing multi-panel categorical plots
+\begin{itemize}
+\item As we mentioned above, there are two ways to draw categorical plots in seaborn. 
+\item Similar to the duality in the regression plots, you can either use the functions introduced above, or the higher-level function \texttt{factorplot()}, which combines these functions with a \texttt{FacetGrid()} to add the ability to examine additional categories through the larger structure of the figure.
+\end{itemize}
+
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{itemize}
+\item While the main options for each plot kind are available either way, the lower-level functions have a bit more flexibility in the kind of inputs they can take.
+\item For instance, you can just pass a DataFrame to the data parameter, and the distribution or central tendency of each column in the dataframe will be shown:
+\end{itemize}
+
+
+sns.boxplot(data=iris, orient="h");
+../_images/categorical_39_0.png
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	
+Additionally, these functions accept vectors of Pandas or numpy objects rather than variables in a DataFrame:
+
+sns.violinplot(x=iris.species, y=iris.sepal_length);
+../_images/categorical_41_0.png
+To control the size and shape of plots made by the functions discussed above, you must set up the figure yourself using matplotlib commands. Of course, this also means that the plots can happily coexist in a multi-panel figure with other kinds of plots:
+
+f, ax = plt.subplots(figsize=(7, 3))
+sns.countplot(y="deck", data=titanic, color="c");
+../_images/categorical_43_0.png
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	
+The \texttt{factorplot()} function is a higher-level wrapper on these plots that produces a matplotlib figure managed through a FacetGrid:
+
+sns.factorplot(x="day", y="total_bill", hue="smoker", data=tips);
+../_images/categorical_45_0.png
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	
+By default it uses \texttt{pairplot()}, but the kind parameter lets you chose any of the kinds of plots discussed above:
+
+sns.factorplot(x="day", y="total_bill", hue="smoker", data=tips, kind="bar");
+../_images/categorical_47_0.png
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	
+The key advantage of \texttt{factorplot()} is that it’s easy to add faceting by additional variables in the DataFrame, such as along the columns:
+
+sns.factorplot(x="day", y="total_bill", hue="smoker",
+               col="time", data=tips, kind="bar");
+../_images/categorical_49_0.png
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	
+Any kind of plot can be drawn. Because of the way FacetGrid works, to change the size and shape of the figure you need to specify the size and aspect arguments, which apply to a single facet:
+\begin{verbatim}
+sns.factorplot(x="time", y="total_bill", hue="smoker",
+               col="day", data=tips, kind="box", size=4, aspect=.5);
+../_images/categorical_51_0.png
+\end{verbatim}
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	
+Because of the generalized API of the categorical plots, they should be easy to apply to other more complex contexts. For example, they are easily combined with a PairGrid to show categorical relationships across several different variables:
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	\begin{verbatim}
+g = sns.PairGrid(tips,
+                 x_vars=["smoker", "time", "sex"],
+                 y_vars=["total_bill", "tip"],
+                 aspect=.75, size=3.5)
+g.map(sns.violinplot, palette="pastel");
+../_images/categorical_53_0.png
+\end{verbatim}
+\end{frame}
+%====================================%
+\end{document}

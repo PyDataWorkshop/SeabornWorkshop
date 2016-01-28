@@ -1,0 +1,23 @@
+\section{Plotting a regression in other contexts}
+A few other seaborn functions use regplot() in the context of a larger, more complex plot. The first is the jointplot() function that we introduced in the distributions tutorial. In addition to the plot styles previously discussed, jointplot() can use regplot() to show the linear regression fit on the joint axes by passing kind="reg":
+
+sns.jointplot(x="total_bill", y="tip", data=tips, kind="reg");
+../_images/regression_51_0.png
+\end{frame}
+%===========================================================%
+\begin{frame}
+Using the pairplot() function with kind="reg" combines regplot() and PairGrid to show the linear relationship between variables in a dataset. Take care to note how this is different from lmplot(). In the figure below, the two axes don’t show the same relationship conditioned on two levels of a third variable; rather, PairGrid() is used to show multiple relationships between different pairings of the variables in a dataset:
+
+sns.pairplot(tips, x_vars=["total_bill", "size"], y_vars=["tip"],
+             size=5, aspect=.8, kind="reg");
+../_images/regression_53_0.png
+\end{frame}
+%===========================================================%
+\begin{frame}
+	Like lmplot(), but unlike jointplot(), conditioning on an additional categorical variable is built into pairplot() using the hue parameter:
+\begin{verbatim}
+sns.pairplot(tips, x_vars=["total_bill", "size"], y_vars=["tip"],
+             hue="smoker", size=5, aspect=.8, kind="reg");
+../_images/regression_55_0.png
+\end{verbatim}
+\end{frame}

@@ -1,0 +1,110 @@
+\documentclass{beamer}
+
+\usepackage{framed}
+\usepackage{graphicx}
+
+\begin{document}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+\noindent \textbf{Statistical estimation within categories}
+\begin{itemize}
+\item Often, rather than showing the distribution within each category, you might want to show the central tendency of the values. 
+\item Seaborn has two main ways to show this information, but importantly, the basic API for these functions is identical to that for the ones discussed above.
+\end{itemize}
+\end{frame}
+
+%====================================%
+\begin{frame}[fragile]
+\frametitle{Seaborn Workshop}
+\large
+\noindent \textbf{Bar plots}
+\begin{itemize}
+\item A familiar style of plot that accomplishes this goal is a bar plot. In seaborn, the \texttt{barplot()} function operates on a full dataset and shows an arbitrary estimate, using the mean by default.
+\item When there are multiple observations in each category, it also uses bootstrapping to compute a confidence interval around the estimate and plots that using error bars:
+\end{itemize}
+
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+sns.barplot(x="sex", y="survived", hue="class", data=titanic);
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/categorical_29_0}
+\caption{}
+\label{fig:categorical_29_0}
+\end{figure}
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+A special case for the bar plot is when you want to show the number of observations in each category rather than computing a statistic for a second variable. This is similar to a histogram over a categorical, rather than quantitative, variable. In seaborn, it’s easy to do so with the countplot() function:
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\begin{verbatim}
+sns.countplot(x="deck", data=titanic, palette="Greens_d");
+	\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/categorical_31_0}
+\caption{}
+\label{fig:categorical_31_0}
+\end{figure}
+\end{frame}
+%======================================================================== %
+\begin{frame}[fragile]
+Both barplot() and countplot() can be invoked with all of the options discussed above, along with others that are demonstrated in the detailed documentation for each function:
+\begin{verbatim}
+sns.countplot(y="deck", hue="class", data=titanic, palette="Greens_d");
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/categorical_33_0}
+\caption{}
+\label{fig:categorical_33_0}
+\end{figure}
+
+\end{frame}
+\section{Point plots}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+Point plots
+An alternative style for visualizing the same information is offered by the pointplot() function. This function also encodes the value of the estimate with height on the other axis, but rather than show a full bar it just plots the point estimate and confidence interval. Additionally, pointplot connects points from the same hue category. This makes it easy to see how the main relationship is changing as a function of a second variable, because your eyes are quite good at picking up on differences of slopes:
+\end{frame}
+
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+sns.pointplot(x="sex", y="survived", hue="class", data=titanic);
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/categorical_35_0}
+\caption{}
+\label{fig:categorical_35_0}
+\end{figure}
+\end{frame}
+%================================================================================ %
+\begin{frame}[fragile]
+To make figures that reproduce well in black and white, it can be good to use different markers and line styles for the levels of the hue category:
+\begin{verbatim}
+sns.pointplot(x="class", y="survived", hue="sex", data=titanic,
+palette={"male": "g", "female": "m"},
+markers=["^", "o"], linestyles=["-", "--"]);
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/categorical_37_0}
+\caption{}
+\label{fig:categorical_37_0}
+\end{figure}
+
+\end{frame}
+\end{document}
+
