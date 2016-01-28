@@ -1,6 +1,14 @@
 
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
 Plotting on data-aware grids
-When exploring medium-dimensional data, a useful approach is to draw multiple instances of the same plot on different subsets of your dataset. This technique is sometimes called either “lattice”, or “trellis” plotting, and it is related to the idea of “small multiples”. It allows a viewer to quickly extract a large amount of information about complex data. Matplotlib offers good support for making figures with multiple axes; seaborn builds on top of this to directly link the structure of the plot to the structure of your dataset.
+\begin{itemize}
+\item When exploring medium-dimensional data, a useful approach is to draw multiple instances of the same plot on different subsets of your dataset. This technique is sometimes called either “lattice”, or “trellis” plotting, and it is related to the idea of “small multiples”. It allows a viewer to quickly extract a large amount of information about complex data. 
+\item Matplotlib offers good support for making figures with multiple axes; seaborn builds on top of this to directly link the structure of the plot to the structure of your dataset.
+\end{itemize}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -12,12 +20,26 @@ To use these features, your data has to be in a Pandas DataFrame and it must tak
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
-For advanced use, you can use the objects discussed in this part of the tutorial directly, which will provide maximum flexibility. Some seaborn functions (such as lmplot(), factorplot(), and pairplot()) also use them behind the scenes. Unlike other seaborn functions that are “Axes-level” and draw onto specific (possibly already-existing) matplotlib Axes without otherwise manipulating the figure, these higher-level functions create a figure when called and are generally more strict about how it gets set up. In some cases, arguments either to those functions or to the constructor of the class they rely on will provide a different interface attributes like the figure size, as in the case of lmplot() where you can set the height and aspect ratio for each facet rather than the overall size of the figure. Any function that uses one of these objects will always return it after plotting, though, and most of these objects have convenience methods for changing how the plot, often in a more abstract and easy way.
+\begin{itemize}
+\item	For advanced use, you can use the objects discussed in this part of the tutorial directly, which will provide maximum flexibility. Some seaborn functions (such as lmplot(), factorplot(), and pairplot()) also use them behind the scenes. 
+\item Unlike other seaborn functions that are “Axes-level” and draw onto specific (possibly already-existing) matplotlib Axes without otherwise manipulating the figure, these higher-level functions create a figure when called and are generally more strict about how it gets set up.
+\end{itemize} 
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{itemize}
+\item 
+In some cases, arguments either to those functions or to the constructor of the class they rely on will provide a different interface attributes like the figure size, as in the case of lmplot() where you can set the height and aspect ratio for each facet rather than the overall size of the figure.
+\item  Any function that uses one of these objects will always return it after plotting, though, and most of these objects have convenience methods for changing how the plot, often in a more abstract and easy way.
+\end{itemize}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
+\begin{verbatim}
 %matplotlib inline
 import numpy as np
 import pandas as pd
@@ -27,14 +49,21 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 sns.set(style="ticks")
 np.random.seed(sum(map(ord, "axis_grids")))
+\end{verbatim}
+
 \end{frame}
+\section{Subsetting data with FacetGrid}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
+\noindent \textbf{Subsetting data with FacetGrid}
+\begin{itemize}
+\item The FacetGrid class is useful when you want to visualize the distribution of a variable or the relationship between multiple variables separately within subsets of your dataset. 
+\item A FacetGrid can be drawn with up to three dimensions: row, col, and hue. 
+\item The first two have obvious correspondence with the resulting array of axes; think of the hue variable as a third dimension along a depth axis, where different levels are plotted with different colors.
+\end{itemize}
 
-Subsetting data with FacetGrid
-The FacetGrid class is useful when you want to visualize the distribution of a variable or the relationship between multiple variables separately within subsets of your dataset. A FacetGrid can be drawn with up to three dimensions: row, col, and hue. The first two have obvious correspondence with the resulting array of axes; think of the hue variable as a third dimension along a depth axis, where different levels are plotted with different colors.
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -48,11 +77,12 @@ The class is used by initializing a FacetGrid object with a dataframe and the na
 \frametitle{Seaborn Workshop}
 \large
 
-Additionally, both lmplot() and factorplot() use this object internally, and they return the object when they are finsihed so that it can be used for further tweaking.
-
+Additionally, both \texttt{lmplot()} and \texttt{factorplot()} use this object internally, and they return the object when they are finsihed so that it can be used for further tweaking.
+\begin{verbatim}
 tips = sns.load_dataset("tips")
 g = sns.FacetGrid(tips, col="time")
 ../_images/axis_grids_8_0.png
+\end{verbatim}
 Initializing the grid like this sets up the matplotlib figure and axes, but doesn’t draw anything on them.
 \end{frame}
 %====================================%
@@ -62,20 +92,23 @@ Initializing the grid like this sets up the matplotlib figure and axes, but does
 
 The main approach for visualizing data on this grid is with the FacetGrid.map() method. Provide it with a plotting function and the name(s) of variable(s) in the dataframe to plot. Let’s look at the distribution of tips in each of these subsets, using a histogram.
 
+\begin{verbatim}
 g = sns.FacetGrid(tips, col="time")
 g.map(plt.hist, "tip");
 ../_images/axis_grids_10_0.png
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
 This function will draw the figure and annotate the axes, hopefully producing a finished plot in one step. To make a relational plot, just pass multiple variable names. You can also provide keyword arguments, which will be passed to the plotting function:
-
+\begin{verbatim}
 g = sns.FacetGrid(tips, col="sex", hue="smoker")
 g.map(plt.scatter, "total_bill", "tip", alpha=.7)
 g.add_legend();
 ../_images/axis_grids_12_0.png
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -84,34 +117,38 @@ g.add_legend();
 
 There are several options for controlling the look of the grid that can be passed to the class constructor.
 
+\begin{verbatim}
+
 g = sns.FacetGrid(tips, row="smoker", col="time", margin_titles=True)
 g.map(sns.regplot, "size", "total_bill", color=".3", fit_reg=False, x_jitter=.1);
 ../_images/axis_grids_14_0.png
-Note that margin_titles isn’t formally supported by the matplotlib API, and may not work well in all cases. In particular, it currently can’t be used with a legend that lies outside of the plot.
+\end{verbatim}
+Note that margin\_titles isn’t formally supported by the matplotlib API, and may not work well in all cases. In particular, it currently can’t be used with a legend that lies outside of the plot.
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
 The size of the figure is set by providing the height of each facet, along with the aspect ratio:
-
+\begin{verbatim}
 g = sns.FacetGrid(tips, col="day", size=4, aspect=.5)
 g.map(sns.barplot, "sex", "total_bill");
 ../_images/axis_grids_16_0.png
-
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
 With versions of matplotlib > 1.4, you can pass parameters to be used in the gridspec module. The can be used to draw attention to a particular facet by increasing its size. It’s particularly useful when visualizing distributions of datasets with unequal numbers of groups in each facet.
-
+\begin{verbatim}
 titanic = sns.load_dataset("titanic")
 titanic = titanic.assign(deck=titanic.deck.astype(object)).sort("deck")
 g = sns.FacetGrid(titanic, col="class", sharex=False,
                   gridspec_kws={"width_ratios": [5, 3, 3]})
 g.map(sns.boxplot, "deck", "age");
 ../_images/axis_grids_18_0.png
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -119,25 +156,26 @@ g.map(sns.boxplot, "deck", "age");
 \large
 The default ordering of the facets is derived from the information in the DataFrame. If the variable used to define facets has a categorical type, then the order of the categories is used. Otherwise, the facets will be in the order of appearence of the category levels. It is possible, however, to specify an ordering of any facet dimension with the appropriate *_order parameter:
 
+\begin{verbatim}
 ordered_days = tips.day.value_counts().index
 g = sns.FacetGrid(tips, row="day", row_order=ordered_days,
                   size=1.7, aspect=4,)
 g.map(sns.distplot, "total_bill", hist=False, rug=True);
 ../_images/axis_grids_20_0.png
-
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
-Any seaborn color palette (i.e., something that can be passed to color_palette() can be provided. You can also use a dictionary that maps the names of values in the hue variable to valid matplotlib colors:
-
+Any seaborn color palette (i.e., something that can be passed to color\_palette() can be provided. You can also use a dictionary that maps the names of values in the hue variable to valid matplotlib colors:
+\begin{verbatim}
 pal = dict(Lunch="seagreen", Dinner="gray")
 g = sns.FacetGrid(tips, hue="time", palette=pal, size=5)
 g.map(plt.scatter, "total_bill", "tip", s=50, alpha=.7, linewidth=.5, edgecolor="white")
 g.add_legend();
 ../_images/axis_grids_22_0.png
-
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -150,10 +188,12 @@ You can also let other aspects of the plot vary across levels of the hue variabl
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
+\begin{verbatim}
 g = sns.FacetGrid(tips, hue="sex", palette="Set1", size=5, hue_kws={"marker": ["^", "v"]})
 g.map(plt.scatter, "total_bill", "tip", s=100, linewidth=.5, edgecolor="white")
 g.add_legend();
 ../_images/axis_grids_24_0.png
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -161,38 +201,47 @@ g.add_legend();
 \large
 If you have many levels of one variable, you can plot it along the columns but “wrap” them so that they span multiple rows. When doing this, you cannot use a row variable.
 
+\begin{verbatim}
 attend = sns.load_dataset("attention").query("subject <= 12")
 g = sns.FacetGrid(attend, col="subject", col_wrap=4, size=2, ylim=(0, 10))
 g.map(sns.pointplot, "solutions", "score", color=".3", ci=None);
 ../_images/axis_grids_26_0.png
-
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
+\begin{itemize}
+\item Once you’ve drawn a plot using \texttt{FacetGrid.map()} (which can be called multiple times), you may want to adjust some aspects of the plot. 
+\item There are also a number of methods on the \texttt{FacetGrid} object for manipulating the figure at a higher level of abstraction. \item The most general is \texttt{FacetGrid.set()}, and there are other more specialized methods like \texttt{FacetGrid.set\_axis\_labels()}, which respects the fact that interior facets do not have axis labels. For example:
+\end{itemize}
 
-Once you’ve drawn a plot using FacetGrid.map() (which can be called multiple times), you may want to adjust some aspects of the plot. There are also a number of methods on the FacetGrid object for manipulating the figure at a higher level of abstraction. The most general is FacetGrid.set(), and there are other more specialized methods like FacetGrid.set_axis_labels(), which respects the fact that interior facets do not have axis labels. For example:
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
 with sns.axes_style("white"):
+\begin{verbatim}
     g = sns.FacetGrid(tips, row="sex", col="smoker", margin_titles=True, size=2.5)
 g.map(plt.scatter, "total_bill", "tip", color="#334488", edgecolor="white", lw=.5);
 g.set_axis_labels("Total bill (US Dollars)", "Tip");
 g.set(xticks=[10, 30, 50], yticks=[2, 6, 10]);
 g.fig.subplots_adjust(wspace=.02, hspace=.02);
 ../_images/axis_grids_28_0.png
+\end{verbatim}
 
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
+\begin{itemize}
+\item For even more customization, you can work directly with the underling matplotlib Figure and Axes objects, which are stored as member attributes at fig and axes (a two-dimensional array), respectively. 
+\item When making a figure without row or column faceting, you can also use the ax attribute to directly access the single axes.
+\end{itemize}
 
-For even more customization, you can work directly with the underling matplotlib Figure and Axes objects, which are stored as member attributes at fig and axes (a two-dimensional array), respectively. When making a figure without row or column faceting, you can also use the ax attribute to directly access the single axes.
 
 \end{frame}
 %====================================%
@@ -206,19 +255,23 @@ for ax in g.axes.flat:
     ax.plot((0, 50), (0, .2 * 50), c=".2", ls="--")
 g.set(xlim=(0, 60), ylim=(0, 14));
 \end{verbatim}
-../_images/axis_grids_30_0.png
+% ../_images/axis_grids_30_0.png
 
 \end{frame}
+
+\section{Mapping custom functions onto the grid}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
+\noindent \textbf{Mapping custom functions onto the grid}
+\begin{itemize}
+\item You’re not limited to existing matplotlib and seaborn functions when using FacetGrid. However, to work properly, any function you use must follow a few rules:
 
-Mapping custom functions onto the grid
-You’re not limited to existing matplotlib and seaborn functions when using FacetGrid. However, to work properly, any function you use must follow a few rules:
+\item It must plot onto the “currently active” matplotlib Axes. This will be true of functions in the matplotlib.pyplot namespace, and you can call plt.gca to get a reference to the current Axes if you want to work directly with its methods.
+\item It must accept the data that it plots in positional arguments. Internally, FacetGrid will pass a Series of data for each of the named positional arguments passed to \texttt{FacetGrid.map()}.
+\end{itemize}
 
-It must plot onto the “currently active” matplotlib Axes. This will be true of functions in the matplotlib.pyplot namespace, and you can call plt.gca to get a reference to the current Axes if you want to work directly with its methods.
-It must accept the data that it plots in positional arguments. Internally, FacetGrid will pass a Series of data for each of the named positional arguments passed to FacetGrid.map().
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -227,6 +280,7 @@ It must accept the data that it plots in positional arguments. Internally, Facet
 It must be able to accept color and label keyword arguments, and, ideally, it will do something useful with them. In most cases, it’s easiest to catch a generic dictionary of **kwargs and pass it along to the underlying plotting function.
 Let’s look at minimal example of a function you can plot with. This function will just take a single vector of data for each facet:
 
+\begin{verbatim}
 def quantile_plot(x, **kwargs):
     qntls, xr = stats.probplot(x, fit=False)
     plt.scatter(xr, qntls, **kwargs)
@@ -234,6 +288,7 @@ def quantile_plot(x, **kwargs):
 g = sns.FacetGrid(tips, col="sex", size=4)
 g.map(quantile_plot, "total_bill");
 ../_images/axis_grids_32_0.png
+\end{verbatim}
 
 \end{frame}
 %====================================%
@@ -241,40 +296,56 @@ g.map(quantile_plot, "total_bill");
 \frametitle{Seaborn Workshop}
 \large
 If we want to make a bivariate plot, you should write the function so that it accepts the x-axis variable first and the y-axis variable second:
-
+\begin{verbatim}
 def qqplot(x, y, **kwargs):
-    _, xr = stats.probplot(x, fit=False)
-    _, yr = stats.probplot(y, fit=False)
-    plt.scatter(xr, yr, **kwargs)
+_, xr = stats.probplot(x, fit=False)
+_, yr = stats.probplot(y, fit=False)
+plt.scatter(xr, yr, **kwargs)
 
 g = sns.FacetGrid(tips, col="smoker", size=4)
 g.map(qqplot, "total_bill", "tip");
 ../_images/axis_grids_34_0.png
+\end{verbatim}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
 Because plt.scatter accepts color and label keyword arguments and does the right thing with them, we can add a hue facet without any difficulty:
-
+\begin{verbatim}
 g = sns.FacetGrid(tips, hue="time", col="sex", size=4)
 g.map(qqplot, "total_bill", "tip")
 g.add_legend();
 ../_images/axis_grids_36_0.png
-This approach also lets us use additional aesthetics to distinguish the levels of the hue variable, along with keyword arguments that won’t be depdendent on the faceting variables:
+\end{verbatim}
 
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+This approach also lets us use additional aesthetics to distinguish the levels of the hue variable, along with keyword arguments that won’t be depdendent on the faceting variables:
+\begin{verbatim}
 g = sns.FacetGrid(tips, hue="time", col="sex", size=4,
-                  hue_kws={"marker": ["s", "D"]})
+hue_kws={"marker": ["s", "D"]})
 g.map(qqplot, "total_bill", "tip", s=40, edgecolor="w")
 g.add_legend();
 ../_images/axis_grids_38_0.png
+\end{verbatim}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
-Sometimes, though, you’ll want to map a function that doesn’t work the way you expect with the color and label keyword arguments. In this case, you’ll want to explictly catch them and handle them in the logic of your custom function. For example, this approach will allow use to map plt.hexbin, which otherwise does not play well with the FacetGrid API:
-
+Sometimes, though, you’ll want to map a function that doesn’t work the way you expect with the color and label keyword arguments. In this case, you’ll want to explictly catch them and handle them in the logic of your custom function. For example, this approach will allow use to map \texttt{plt.hexbin}, which otherwise does not play well with the FacetGrid API:
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{verbatim}
 def hexbin(x, y, color, **kwargs):
     cmap = sns.light_palette(color, as_cmap=True)
     plt.hexbin(x, y, gridsize=15, cmap=cmap, **kwargs)
@@ -283,13 +354,19 @@ with sns.axes_style("dark"):
     g = sns.FacetGrid(tips, hue="time", col="time", size=4)
 g.map(hexbin, "total_bill", "tip", extent=[0, 50, 0, 10]);
 ../_images/axis_grids_40_0.png
+\end{verbatim}
 \end{frame}
+\section{Plotting pairwise relationships with PairGrid and pairplot()}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
 Plotting pairwise relationships with PairGrid and pairplot()
-PairGrid also allows you to quickly draw a grid of small subplots using the same plot type to visualize data in each. In a PairGrid, each row and column is assigned to a different variable, so the resulting plot shows each pairwise relationship in the dataset. This style of plot is sometimes called a “scatterplot matrix”, as this is the most common way to show each relationship, but PairGrid is not limited to scatterplots.
+\begin{itemize}
+\item PairGrid also allows you to quickly draw a grid of small subplots using the same plot type to visualize data in each. 
+\item In a PairGrid, each row and column is assigned to a different variable, so the resulting plot shows each pairwise relationship in the dataset. 
+\item This style of plot is sometimes called a “scatterplot matrix”, as this is the most common way to show each relationship, but PairGrid is not limited to scatterplots.
+\end{itemize}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -304,44 +381,62 @@ The basic usage of the class is very similar to FacetGrid. First you initialize 
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
+\begin{framed}
+	\begin{verbatim}
 iris = sns.load_dataset("iris")
 g = sns.PairGrid(iris)
 g.map(plt.scatter);
 ../_images/axis_grids_42_0.png
+\end{verbatim}
+\end{framed}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
 It’s possible to plot a different function on the diagonal to show the univariate distribution of the variable in each column. Note that the axis ticks won’t correspond to the count or density axis of this plot, though.
-
+\begin{verbatim}
 g = sns.PairGrid(iris)
 g.map_diag(plt.hist)
 g.map_offdiag(plt.scatter);
 ../_images/axis_grids_44_0.png
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \largeA very common way to use this plot colors the observations by a separate categorical variable. For example, the iris dataset has four measurements for each of three different species of iris flowers so you can see how they differ.
-
+\begin{verbatim}
 g = sns.PairGrid(iris, hue="species")
 g.map_diag(plt.hist)
 g.map_offdiag(plt.scatter)
 g.add_legend();
 ../_images/axis_grids_46_0.png
+\end{verbatim}
 By default every numeric column in the dataset is used, but you can focus on particular relationships if you want.
-
-g = sns.PairGrid(iris, vars=["sepal_length", "sepal_width"], hue="species")
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{verbatim}
+	g = sns.PairGrid(iris, vars=["sepal_length", "sepal_width"], hue="species")
 g.map(plt.scatter);
 ../_images/axis_grids_48_0.png
+\end{verbatim}
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
 It’s also possible to use a different function in the upper and lower triangles to emphasize different aspects of the relationship.
-
+\begin{verbatim}
 g = sns.PairGrid(iris)
 g.map_upper(plt.scatter)
 g.map_lower(sns.kdeplot, cmap="Blues_d")
 g.map_diag(sns.kdeplot, lw=3, legend=False);
 ../_images/axis_grids_50_0.png
+\end{verbatim}
 
 \end{frame}
 %====================================%
@@ -350,17 +445,24 @@ g.map_diag(sns.kdeplot, lw=3, legend=False);
 \large
 
 The square grid with identity relationships on the diagonal is actually just a special case, and you can plot with different variables in the rows and columns.
-
+\begin{verbatim}
 g = sns.PairGrid(tips, y_vars=["tip"], x_vars=["total_bill", "size"], size=4)
 g.map(sns.regplot, color=".3")
 g.set(ylim=(-1, 11), yticks=[0, 5, 10]);
 ../_images/axis_grids_52_0.png
+\end{verbatim}
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
 Of course, the aesthetic attributes are configurable. For instance, you can use a different palette (say, to show an ordering of the hue variable) and pass keyword arguments into the plotting functions.
-
+\begin{verbatim}
 g = sns.PairGrid(tips, hue="size", palette="GnBu_d")
 g.map(plt.scatter, s=50, edgecolor="white")
 g.add_legend();
 ../_images/axis_grids_54_0.png
+\end{verbatim}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -368,14 +470,23 @@ g.add_legend();
 \large
 
 PairGrid is flexible, but to take a quick look at a dataset, it can be easier to use pairplot(). This function uses scatterplots and histograms by default, although a few other kinds will be added (currently, you can also plot regression plots on the off-diagonals and KDEs on the diagonal).
-
+\begin{verbatim}
 sns.pairplot(iris, hue="species", size=2.5);
 ../_images/axis_grids_56_0.png
-You can also control the aesthetics of the plot with keyword arguments, and it returns the PairGrid instance for further tweaking.
+\end{verbatim}
+
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	\begin{itemize}
+\item You can also control the aesthetics of the plot with keyword arguments, and it returns the PairGrid instance for further tweaking.
+
+	\end{itemize}
 
 g = sns.pairplot(iris, hue="species", palette="Set2", diag_kind="kde", size=2.5)
 ../_images/axis_grids_58_0.png
-Back to top 
-Source
-© Copyright 2012-2015, Michael Waskom.
-Created using Sphinx 1.2.3.
+\end{frame}
+%====================================%
+\end{document}

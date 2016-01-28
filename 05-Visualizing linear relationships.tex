@@ -3,10 +3,16 @@ Many datasets contain multiple quantitative variables, and the goal of an analys
 \end{frame}
 %=========================================%
 \begin{frame}
-In the spirit of Tukey, the regression plots in seaborn are primarily intended to add a visual guide that helps to emphasize patterns in a dataset during exploratory data analyses. That is to say that seaborn is not itself a package for statistical analysis. To obtain quantitative measures related to the fit of regression models, you should use statsmodels. The goal of seaborn, however, is to make exploring a dataset through visualization quick and easy, as doing so is just as (if not more) important than exploring a dataset through tables of statistics.
+	\begin{itemize}
+\item In the spirit of Tukey, the regression plots in seaborn are primarily intended to add a visual guide that helps to emphasize patterns in a dataset during exploratory data analyses. 
+\item That is to say that seaborn is not itself a package for statistical analysis. To obtain quantitative measures related to the fit of regression models, you should use statsmodels. 
+\item The goal of seaborn, however, is to make exploring a dataset through visualization quick and easy, as doing so is just as (if not more) important than exploring a dataset through tables of statistics.
+	\end{itemize}
+
 \end{frame}
 %=========================================%
-\begin{frame}
+\begin{frame}[fragile]
+	\begin{verbatim}
 %matplotlib inline
 import numpy as np
 import pandas as pd
@@ -16,6 +22,9 @@ import seaborn as sns
 sns.set(color_codes=True)
 np.random.seed(sum(map(ord, "regression")))
 tips = sns.load_dataset("tips")
+	\end{verbatim}
+
+\end{frame}
 %========================================================%
 \subsection{Functions to draw linear regression models}
 Two main functions in seaborn are used to visualize a linear relationship as determined through regression. These functions, regplot() and lmplot() are closely related, and share much of their core functionality. It is important to understand the ways they differ, however, so that you can quickly choose the correct tool for particular job.
@@ -26,24 +35,54 @@ sns.regplot(x="total_bill", y="tip", data=tips);
 ../_images/regression_9_0.png
 sns.lmplot(x="total_bill", y="tip", data=tips);
 ../_images/regression_10_0.png
-%========================================================%
-You should note that the resulting plots are identical, except that the figure shapes are different. We will explain why this is shortly. For now, the other main difference to know about is that regplot() accepts the x and y variables in a variety of formats including simple numpy arrays, pandas Series objects, or as references to variables in a pandas DataFrame object passed to data. In contrast, lmplot() has data as a required parameter and the x and y variables must be specified as strings. This data format is called “long-form” or “tidy” data. Other than this input flexibility, regplot() possesses a subset of lmplot()‘s features, so we will demonstrate them using the latter.
+\end{frame}
+%===================================================================== %
+\begin{frame}[fragile]
+	\large
+You should note that the resulting plots are identical, except that the figure shapes are different. We will explain why this is shortly. For now, the other main difference to know about is that regplot() accepts the x and y variables in a variety of formats including simple numpy arrays, pandas Series objects, or as references to variables in a pandas DataFrame object passed to data. In contrast, \texttt{lmplot()} has data as a required parameter and the x and y variables must be specified as strings. 
 
-It’s possible to fit a linear regression when one of the variables takes discrete values, however, the simple scatterplot produced by this kind of dataset is often not optimal:
+\end{frame}
+%===================================================================== %
+\begin{frame}[fragile]
+	\large
+	
+\begin{itemize}
+\item This data format is called “long-form” or “tidy” data. Other than this input flexibility, \texttt{regplot()} possesses a subset of lmplot()‘s features, so we will demonstrate them using the latter.
 
+\item It’s possible to fit a linear regression when one of the variables takes discrete values, however, the simple scatterplot produced by this kind of dataset is often not optimal:
+\end{itemize}
+\end{frame}
+%===================================================================== %
+\begin{frame}[fragile]
+	\large
+	
 sns.lmplot(x="size", y="tip", data=tips);
 ../_images/regression_12_0.png
+\end{frame}
+%===================================================================== %
+\begin{frame}[fragile]
+	\large
 One option is to add some random noise (“jitter”) to the discrete values to make the distribution of those values more clear. Note that jitter is applied only to the scatterplot data and does not influence the regression line fit itself:
-
+\begin{framed}
+\begin{verbatim}
 sns.lmplot(x="size", y="tip", data=tips, x_jitter=.05);
+\end{verbatim}
+\end{framed}/
 ../_images/regression_14_0.png
+
+\end{frame}
+%===================================================================== %
+\begin{frame}[fragile]
+	\large
 A second option is to collapse over the observations in each discrete bin to plot an estimate of central tendency along with a confidence interval:
 
 sns.lmplot(x="size", y="tip", data=tips, x_estimator=np.mean);
 ../_images/regression_16_0.png
-\section{Fitting different kinds of models}
 
 \end{frame}
+\section{Fitting different kinds of models}
+
+
 %=========================================%
 \begin{frame}
 The simple linear regression model used above is very simple to fit, however, it is not appropriate for some kinds of datasets. The Anscombe’s quartet dataset shows a few examples where simple linear regression provides an identical estimate of a relationship where simple visual inspection clearly shows differences. For example, in the first case, the linear regression is a good model:
@@ -106,6 +145,7 @@ An altogether different approach is to fit a nonparametric regression using a lo
 \end{frame}
 %==============================================%
 \begin{frame}[fragile]
+	\large
 
 sns.lmplot(x="total_bill", y="tip", data=tips,
            lowess=True);
@@ -115,6 +155,10 @@ The residplot() function can be a useful tool for checking whether the simple re
 sns.residplot(x="x", y="y", data=anscombe.query("dataset == 'I'"),
               scatter_kws={"s": 80});
 ../_images/regression_35_0.png
+\end{frame}
+%==============================================%
+\begin{frame}[fragile]
+	\large
 If there is structure in the residuals, it suggests that simple linear regression is not appropriate:
 
 sns.residplot(x="x", y="y", data=anscombe.query("dataset == 'II'"),
@@ -139,6 +183,10 @@ In addition to color, it’s possible to use different scatterplot markers to ma
 sns.lmplot(x="total_bill", y="tip", hue="smoker", data=tips,
            markers=["o", "x"], palette="Set1");
 ../_images/regression_41_0.png
+\end{frame}
+%==============================================%
+\begin{frame}[fragile]
+	\large
 To add another variable, you can draw multiple “facets” which each level of the variable appearing in the rows or columns of the grid:
 
 sns.lmplot(x="total_bill", y="tip", hue="smoker", col="time", data=tips);
@@ -186,7 +234,7 @@ sns.pairplot(tips, x_vars=["total_bill", "size"], y_vars=["tip"],
 %===========================================================%
 \begin{frame}
 	Like lmplot(), but unlike jointplot(), conditioning on an additional categorical variable is built into pairplot() using the hue parameter:
-
+\begin{verbatim}
 sns.pairplot(tips, x_vars=["total_bill", "size"], y_vars=["tip"],
              hue="smoker", size=5, aspect=.8, kind="reg");
 ../_images/regression_55_0.png
