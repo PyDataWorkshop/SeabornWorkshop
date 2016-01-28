@@ -1,8 +1,12 @@
-Visualizing linear relationships
+\section{Visualizing linear relationships}
 Many datasets contain multiple quantitative variables, and the goal of an analysis is often to relate those variables to each other. We previously discussed functions that can accomplish this by showing the joint distribution of two variables. It can be very helpful, though, to use statistical models to estimate a simple relationship between two noisy sets of observations. The functions discussed in this chapter will do so through the common framework of linear regression.
+\end{frame}
 %=========================================%
+\begin{frame}
 In the spirit of Tukey, the regression plots in seaborn are primarily intended to add a visual guide that helps to emphasize patterns in a dataset during exploratory data analyses. That is to say that seaborn is not itself a package for statistical analysis. To obtain quantitative measures related to the fit of regression models, you should use statsmodels. The goal of seaborn, however, is to make exploring a dataset through visualization quick and easy, as doing so is just as (if not more) important than exploring a dataset through tables of statistics.
-
+\end{frame}
+%=========================================%
+\begin{frame}
 %matplotlib inline
 import numpy as np
 import pandas as pd
@@ -38,13 +42,19 @@ A second option is to collapse over the observations in each discrete bin to plo
 sns.lmplot(x="size", y="tip", data=tips, x_estimator=np.mean);
 ../_images/regression_16_0.png
 \section{Fitting different kinds of models}
+
+\end{frame}
+%=========================================%
+\begin{frame}
 The simple linear regression model used above is very simple to fit, however, it is not appropriate for some kinds of datasets. The Anscombe’s quartet dataset shows a few examples where simple linear regression provides an identical estimate of a relationship where simple visual inspection clearly shows differences. For example, in the first case, the linear regression is a good model:
 
 anscombe = sns.load_dataset("anscombe")
 sns.lmplot(x="x", y="y", data=anscombe.query("dataset == 'I'"),
            ci=None, scatter_kws={"s": 80});
 ../_images/regression_19_0.png
-The linear relationship in the second dataset is the same, but the plot clearly shows that this is not a good model:
+\end{frame}
+%=========================================%
+\begin{frame}The linear relationship in the second dataset is the same, but the plot clearly shows that this is not a good model:
 
 sns.lmplot(x="x", y="y", data=anscombe.query("dataset == 'II'"),
            ci=None, scatter_kws={"s": 80});
@@ -54,11 +64,18 @@ In the presence of these kind of higher-order relationships, lmplot() and regplo
 sns.lmplot(x="x", y="y", data=anscombe.query("dataset == 'II'"),
            order=2, ci=None, scatter_kws={"s": 80});
 ../_images/regression_23_0.png
+\end{frame}
+%=========================================%
+\begin{frame}
 A different problem is posed by “outlier” observations that deviate for some reason other than the main relationship under study:
 
 sns.lmplot(x="x", y="y", data=anscombe.query("dataset == 'III'"),
            ci=None, scatter_kws={"s": 80});
 ../_images/regression_25_0.png
+
+\end{frame}
+%=========================================%
+\begin{frame}
 In the presence of outliers, it can be useful to fit a robust regression, which uses a different loss function to downweight relatively large residuals:
 
 sns.lmplot(x="x", y="y", data=anscombe.query("dataset == 'III'"),
@@ -70,11 +87,17 @@ tips["big_tip"] = (tips.tip / tips.total_bill) > .15
 sns.lmplot(x="total_bill", y="big_tip", data=tips,
            y_jitter=.03);
 ../_images/regression_29_0.png
+\end{frame}
+%=========================================%
+\begin{frame}
 The solution in this case is to fit a logistic regression, such that the regression line shows the estimated probability of y = 1 for a given value of x:
 
 sns.lmplot(x="total_bill", y="big_tip", data=tips,
            logistic=True, y_jitter=.03);
 ../_images/regression_31_0.png
+\end{frame}
+%===========================================================%
+\begin{frame}
 %==========================================================================%
 Note that the logistic regression estimate is considerably more computationally intensive (this is true of robust regression as well) than simple regression, and as the confidence interval around the regression line is computed using a bootstrap procedure, you may wish to turn this off for faster iteration (using ci=False).
 
@@ -127,7 +150,9 @@ sns.lmplot(x="total_bill", y="tip", hue="smoker",
 %=============================================================%
 \section{Controlling the size and shape of the plot}
 Before we noted that the default plots made by regplot() and lmplot() look the same but on axes that have a different size and shape. This is because func:regplot is an “axes-level” function draws onto a specific axes. This means that you can make mutli-panel figures yourself and control exactly where the the regression plot goes. If no axes is provided, it simply uses the “currently active” axes, which is why the default plot has the same size and shape as most other matplotlib functions. To control the size, you need to create a figure object yourself.
-
+\end{frame}
+%=========================================%
+\begin{frame}[fragile]
 \begin{framed}
 \begin{verbatim}
 f, ax = plt.subplots(figsize=(5, 6))
@@ -149,6 +174,7 @@ A few other seaborn functions use regplot() in the context of a larger, more com
 
 sns.jointplot(x="total_bill", y="tip", data=tips, kind="reg");
 ../_images/regression_51_0.png
+\end{frame}
 %===========================================================%
 \begin{frame}
 Using the pairplot() function with kind="reg" combines regplot() and PairGrid to show the linear relationship between variables in a dataset. Take care to note how this is different from lmplot(). In the figure below, the two axes don’t show the same relationship conditioned on two levels of a third variable; rather, PairGrid() is used to show multiple relationships between different pairings of the variables in a dataset:
@@ -156,7 +182,10 @@ Using the pairplot() function with kind="reg" combines regplot() and PairGrid to
 sns.pairplot(tips, x_vars=["total_bill", "size"], y_vars=["tip"],
              size=5, aspect=.8, kind="reg");
 ../_images/regression_53_0.png
-Like lmplot(), but unlike jointplot(), conditioning on an additional categorical variable is built into pairplot() using the hue parameter:
+\end{frame}
+%===========================================================%
+\begin{frame}
+	Like lmplot(), but unlike jointplot(), conditioning on an additional categorical variable is built into pairplot() using the hue parameter:
 
 sns.pairplot(tips, x_vars=["total_bill", "size"], y_vars=["tip"],
              hue="smoker", size=5, aspect=.8, kind="reg");
