@@ -9,8 +9,13 @@
 \frametitle{Seaborn Workshop}
 \large
 
-Choosing color palettes
-Color is more important than other aspects of figure style because color can reveal patterns in the data if used effectively or hide those patterns if used poorly. There are a number of great resources to learn about good techniques for using color in visualizations, I am partial to this series of blog posts from Rob Simmon and this more technical paper. The matplotlib docs also now have a nice tutorial that illustrates some of the perceptual properties of the built in colormaps.
+\noindent \textbf{Choosing color palettes}
+\begin{itemize}
+\item Color is more important than other aspects of figure style because color can reveal patterns in the data if used effectively or hide those patterns if used poorly. 
+\item There are a number of great resources to learn about good techniques for using color in visualizations, I am partial to this series of blog posts from Rob Simmon and this more technical paper. 
+\item The matplotlib docs also now have a nice tutorial that illustrates some of the perceptual properties of the built in colormaps.
+\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -29,12 +34,13 @@ np.random.seed(sum(map(ord, "palettes")))
 \end{framed}
 
 \end{frame}
+\section{Building color palettes with \texttt{color\_palette()}}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
 
-Building color palettes with color\_palette()
+\textbf{Building color palettes with \texttt{color\_palette()}}
 The most important function for working with discrete color palettes is \texttt{color\_palette()}. This function provides an interface to many (though not all) of the possible ways you can generate colors in seaborn, and it’s used internally by any function that has a palette argument (and in some cases for a color argument when multiple colors are needed).
 \end{frame}
 %====================================%
@@ -42,8 +48,11 @@ The most important function for working with discrete color palettes is \texttt{
 	\frametitle{Seaborn Workshop}
 	\large
 	
-	
-\texttt{color\_palette()} will accept the name of any seaborn palette or matplotlib colormap (except jet, which you should never use). It can also take a list of colors specified in any valid matplotlib format (RGB tuples, hex color codes, or HTML color names). The return value is always a list of RGB tuples.
+\begin{itemize}
+\item \texttt{color\_palette()} will accept the name of any seaborn palette or matplotlib colormap (except jet, which you should never use). 
+\item It can also take a list of colors specified in any valid matplotlib format (RGB tuples, hex color codes, or HTML color names). \item The return value is always a list of RGB tuples.
+\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -57,7 +66,10 @@ A corresponding function, set\_palette(), takes the same arguments and will set 
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
-It is generally not possible to know what kind of color palette or colormap is best for a set of data without knowing about the characteristics of the data. Following that, we’ll break up the different ways to use \texttt{color\_palette()} and other seaborn palette functions by the three general kinds of color palettes: qualitative, sequential, and diverging.
+\begin{itemize}
+\item It is generally not possible to know what kind of color palette or colormap is best for a set of data without knowing about the characteristics of the data.
+\item Following that, we’ll break up the different ways to use \texttt{color\_palette()} and other seaborn palette functions by the three general kinds of color palettes: qualitative, sequential, and diverging.
+\end{itemize}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -123,8 +135,6 @@ sns.palplot(sns.hls_palette(8, l=.3, s=.8))
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{images/color_palettes_12_0}
-\caption{}
-\label{fig:color_palettes_12_0}
 \end{figure}
 
 \end{frame}
@@ -132,6 +142,10 @@ sns.palplot(sns.hls_palette(8, l=.3, s=.8))
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
-However, because of the way the human visual system works, colors that are even “intensity” in terms of their RGB levels won’t necessarily look equally intense. We perceive yellows and greens as relatively brighter and blues as relatively darker, which can be a problem when aiming for uniformity with the hls system.
+\begin{itemize}
+\item However, because of the way the human visual system works, colors that are even “intensity” in terms of their RGB levels won’t necessarily look equally intense.
+\item  We perceive yellows and greens as relatively brighter and blues as relatively darker, which can be a problem when aiming for uniformity with the hls system.
+\end{itemize}
+
 \end{frame}
 \end{document}

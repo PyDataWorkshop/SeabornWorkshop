@@ -1,9 +1,16 @@
-\section{Drawing multi-panel categorical plots}
+\documentclass{beamer}
+
+\usepackage{framed}
+\usepackage{graphicx}
+
+\begin{document}
+	
+	\section{Drawing multi-panel categorical plots}
 %====================================%
 \begin{frame}[fragile]
-	\frametitle{Seaborn Workshop}
-	\large
-Drawing multi-panel categorical plots
+\frametitle{Seaborn Workshop}
+\large
+\noindent \textbf{Drawing multi-panel categorical plots}
 \begin{itemize}
 \item As we mentioned above, there are two ways to draw categorical plots in seaborn. 
 \item Similar to the duality in the regression plots, you can either use the functions introduced above, or the higher-level function \texttt{factorplot()}, which combines these functions with a \texttt{FacetGrid()} to add the ability to examine additional categories through the larger structure of the figure.
@@ -21,7 +28,13 @@ Drawing multi-panel categorical plots
 
 
 sns.boxplot(data=iris, orient="h");
-../_images/categorical_39_0.png
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/categorical_39_0}
+\caption{}
+\label{fig:categorical_39_0}
+\end{figure}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -29,14 +42,31 @@ sns.boxplot(data=iris, orient="h");
 	\large
 	
 Additionally, these functions accept vectors of Pandas or numpy objects rather than variables in a DataFrame:
-
+\begin{verbatim}
 sns.violinplot(x=iris.species, y=iris.sepal_length);
-../_images/categorical_41_0.png
-To control the size and shape of plots made by the functions discussed above, you must set up the figure yourself using matplotlib commands. Of course, this also means that the plots can happily coexist in a multi-panel figure with other kinds of plots:
+\end{verbatim}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/categorical_41_0}
+
+\end{figure}
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	
+To control the size and shape of plots made by the functions discussed above, you must set up the figure yourself using matplotlib commands. Of course, this also means that the plots can happily coexist in a multi-panel figure with other kinds of plots:
+\begin{verbatim}
 f, ax = plt.subplots(figsize=(7, 3))
 sns.countplot(y="deck", data=titanic, color="c");
-../_images/categorical_43_0.png
+\end{verbatim}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/categorical_43_0}
+	
+\end{figure}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -44,9 +74,15 @@ sns.countplot(y="deck", data=titanic, color="c");
 	\large
 	
 The \texttt{factorplot()} function is a higher-level wrapper on these plots that produces a matplotlib figure managed through a FacetGrid:
-
+\begin{verbatim}
 sns.factorplot(x="day", y="total_bill", hue="smoker", data=tips);
-../_images/categorical_45_0.png
+\end{verbatim}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/categorical_45_0}
+	
+\end{figure}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -55,8 +91,14 @@ sns.factorplot(x="day", y="total_bill", hue="smoker", data=tips);
 	
 By default it uses \texttt{pairplot()}, but the kind parameter lets you chose any of the kinds of plots discussed above:
 
+\begin{verbatim}
 sns.factorplot(x="day", y="total_bill", hue="smoker", data=tips, kind="bar");
-../_images/categorical_47_0.png
+\end{verbatim}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/categorical_47_0}
+	
+\end{figure}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -64,10 +106,15 @@ sns.factorplot(x="day", y="total_bill", hue="smoker", data=tips, kind="bar");
 	\large
 	
 The key advantage of \texttt{factorplot()} is that it’s easy to add faceting by additional variables in the DataFrame, such as along the columns:
-
+\begin{verbatim}
 sns.factorplot(x="day", y="total_bill", hue="smoker",
                col="time", data=tips, kind="bar");
-../_images/categorical_49_0.png
+\end{verbatim}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/categorical_49_0}
+	
+\end{figure}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -78,15 +125,22 @@ Any kind of plot can be drawn. Because of the way FacetGrid works, to change the
 \begin{verbatim}
 sns.factorplot(x="time", y="total_bill", hue="smoker",
                col="day", data=tips, kind="box", size=4, aspect=.5);
-../_images/categorical_51_0.png
+
 \end{verbatim}
-\end{frame}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/categorical_51_0}
+	
+\end{figure}\end{frame}
 %====================================%
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
-	
-Because of the generalized API of the categorical plots, they should be easy to apply to other more complex contexts. For example, they are easily combined with a PairGrid to show categorical relationships across several different variables:
+	\begin{itemize}
+\item 
+Because of the generalized API of the categorical plots, they should be easy to apply to other more complex contexts. 
+\item For example, they are easily combined with a PairGrid to show categorical relationships across several different variables:
+	\end{itemize}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
