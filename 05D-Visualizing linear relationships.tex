@@ -9,6 +9,7 @@
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
+\noindent \textbf{Plotting a regression in other contexts}
 	\begin{itemize}
 \item A few other seaborn functions use \texttt{regplot()} in the context of a larger, more complex plot. 
 \item The first is the \texttt{jointplot()} function that we introduced in the distributions tutorial.
@@ -21,12 +22,13 @@
 	\large
 
 \begin{verbatim}
-sns.jointplot(x="total_bill", y="tip", data=tips, kind="reg");
+sns.jointplot(x="total_bill", y="tip", 
+              data=tips, kind="reg");
 \end{verbatim}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\linewidth]{images/regression_51_0}
+\includegraphics[width=0.60\linewidth]{images/regression_51_0}
 \end{figure}
 \end{frame}
 %===========================================================%
@@ -34,7 +36,8 @@ sns.jointplot(x="total_bill", y="tip", data=tips, kind="reg");
 	\frametitle{Seaborn Workshop}
 	\large
 \begin{itemize}
-\item Using the \texttt{pairplot()} function with \texttt{kind="reg"} combines \texttt{regplot()} and PairGrid to show the linear relationship between variables in a dataset. Take care to note how this is different from \texttt{lmplot()}. 
+\item Using the \texttt{pairplot()} function with \texttt{kind="reg"} combines \texttt{regplot()} and \texttt{PairGrid} to show the linear relationship between variables in a dataset.
+\item Take care to note how this is different from \texttt{lmplot()}. 
 \item In the figure below, the two axes don’t show the same relationship conditioned on two levels of a third variable; rather, \item \texttt{PairGrid()} is used to show multiple relationships between different pairings of the variables in a dataset:
 \end{itemize}
 
@@ -43,12 +46,12 @@ sns.jointplot(x="total_bill", y="tip", data=tips, kind="reg");
 \begin{frame}[fragile]
 	\large
 \begin{verbatim}
-sns.pairplot(tips, x_vars=["total_bill", "size"], y_vars=["tip"],
-size=5, aspect=.8, kind="reg");
+sns.pairplot(tips, x_vars=["total_bill", "size"],  
+       y_vars=["tip"], size=5, aspect=.8, kind="reg");
 \end{verbatim}
 \begin{figure}
 \centering
-\includegraphics[width=0.7\linewidth]{images/regression_53_0}
+\includegraphics[width=0.8\linewidth]{images/regression_53_0}
 \end{figure}
 
 \end{frame}
@@ -59,8 +62,12 @@ size=5, aspect=.8, kind="reg");
 \begin{verbatim}
 sns.pairplot(tips, x_vars=["total_bill", "size"], y_vars=["tip"],
              hue="smoker", size=5, aspect=.8, kind="reg");
-../_images/regression_55_0.png
+
 \end{verbatim}
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/regression_55_0}
+\end{figure}
 \end{frame}
 
 \end{document}
