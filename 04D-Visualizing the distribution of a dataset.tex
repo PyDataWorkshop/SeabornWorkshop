@@ -7,7 +7,12 @@
 \section{Visualizing pairwise relationships in a dataset}
 %===========================================================%
 \begin{frame}[fragile]
-To plot multiple pairwise bivariate distributions in a dataset, you can use the \texttt{pairplot()} function. This creates a matrix of axes and shows the relationship for each pair of columns in a DataFrame. by default, it also draws the univariate distribution of each variable on the diagonal Axes:
+	\Large
+\begin{itemize}
+\item To plot multiple pairwise bivariate distributions in a dataset, you can use the \texttt{pairplot()} function.
+\item  This creates a matrix of axes and shows the relationship for each pair of columns in a DataFrame. 
+\item By default, it also draws the univariate distribution of each variable on the diagonal Axes:
+\end{itemize}
 \begin{verbatim}
 iris = sns.load_dataset("iris")
 sns.pairplot(iris);
@@ -25,13 +30,15 @@ sns.pairplot(iris);
 \end{frame}
 %===========================================================%
 \begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
 	\large
-Much like the relationship between \texttt{jointplot()} and JointGrid, the \texttt{pairplot()} function is built on top of a PairGrid object, which can be used directly for more flexibility:
+Much like the relationship between \texttt{jointplot()} and \texttt{JointGrid}, the \texttt{pairplot()} function is built on top of a \texttt{PairGrid} object, which can be used directly for more flexibility:
 \begin{framed}
 \begin{verbatim}
 g = sns.PairGrid(iris)
 g.map_diag(sns.kdeplot)
-g.map_offdiag(sns.kdeplot, cmap="Blues_d", n_levels=6);
+g.map_offdiag(sns.kdeplot, cmap="Blues_d", 
+          n_levels=6);
 \end{verbatim}
 \end{framed}
 \end{frame}
@@ -43,8 +50,6 @@ g.map_offdiag(sns.kdeplot, cmap="Blues_d", n_levels=6);
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{images/distributions_44_1}
-\caption{}
-\label{fig:distributions_44_1}
 \end{figure}
 \end{frame}
 

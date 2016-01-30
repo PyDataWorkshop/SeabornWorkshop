@@ -8,7 +8,7 @@
 \section{Visualizing the distribution of a dataset}
 %===========================================================%
 \begin{frame}
-	\large
+	\Large
 	\noindent \textbf{Visualizing the distribution of a dataset}
 	\begin{itemize}
 \item When dealing with a set of data, often the first thing you’ll want to do is get a sense for how the variables are distributed.
@@ -19,7 +19,7 @@
 \end{frame}
 %=============================================================%
 \begin{frame}[fragile]
-\begin{framed}
+\Large\begin{framed}
 \begin{verbatim}
 %matplotlib inline
 import numpy as np
@@ -28,7 +28,8 @@ from scipy import stats, integrate
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set(color_codes=True)
-np.random.seed(sum(map(ord, "distributions")))
+np.random.seed(sum(map(ord, 
+      "distributions")))
 \end{verbatim}
 \end{framed}
 \end{frame}
@@ -53,6 +54,7 @@ sns.distplot(x);
 \section{Histogram}
 %===========================================================%
 \begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
 	\large
 \noindent \textbf{Histograms}
 \begin{itemize}
@@ -63,6 +65,7 @@ sns.distplot(x);
 \end{frame}
 %===========================================================%
 \begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
 	\large
 \begin{itemize}
 \item To illustrate this, let’s remove the density curve and add a rug plot, which draws a small vertical tick at each observation. 
@@ -79,11 +82,19 @@ sns.distplot(x, kde=False, rug=True);
 \end{frame}
 %===========================================================%
 \begin{frame}[fragile]
-When drawing histograms, the main choice you have is the number of bins to use and where to place them. \texttt{distplot()} uses a simple rule to make a good guess for what the right number is by default, but trying more or fewer bins might reveal other features in the data:
+	\frametitle{Seaborn Workshop}
+	\large
+	\begin{itemize}
+\item When drawing histograms, the main choice you have is the number of bins to use and where to place them.
+\item  \texttt{distplot()} uses a simple rule to make a good guess for what the right number is by default, but trying more or fewer bins might reveal other features in the data:
+	\end{itemize}
+
 
 \end{frame}
 %===========================================================%
 \begin{frame}[fragile]
+		\frametitle{Seaborn Workshop}
+		\large
 \begin{verbatim}
 sns.distplot(x, bins=20, kde=False, rug=True);
 \end{verbatim}
