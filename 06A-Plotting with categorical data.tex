@@ -17,6 +17,7 @@
 \end{frame}
 %===================================%
 \begin{frame}[fragile]
+\frametitle{Seaborn Workshop}
 \large
 \begin{itemize}
 \item It’s useful to divide seaborn’s categorical plots into two groups: those that show the full distribution of observations within each level of the categorical variable, and those that apply a statistical estimation to show a measure of central tendency and confidence interval. \item The former includes the functions \texttt{stripplot()}, boxplot(), and violinplot(), while the latter includes the functions \texttt{barplot()}, \texttt{countplot()}, and \texttt{pointplot()}. \item These functions all share a basic API for how they accept data, although each has specific parameters that control the particulars of the visualization that is applied to that data.
@@ -26,9 +27,14 @@
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
+\large
 
 Much like the relationship between regplot() and lmplot(), in seaborn there are both relatively low-level and relatively high-level approaches for making categorical plots. The functions named above are all low-level in that they plot onto a specific matplotlib axes. There is also the higher-level factorplot(), which combines these functions with a FacetGrid to apply a categorical plot across a grid of figure panels.
-
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+\frametitle{Seaborn Workshop}
+\large
 It is easiest and best to invoke these functions with a DataFrame that is in “tidy” format, although the lower-level functions also accept wide-form DataFrames or simple vectors of observations. See below for examples.
 \end{frame}
 %====================================%
@@ -68,8 +74,15 @@ Distributions of observations within categories
 \large
 \noindent \textbf{Categorical scatterplots}
 A simple way to show the distribution of some quantitative variable across the levels of a categorical variable uses stripplot(), which generalizes a scatterplot to the case where one of the variables is categorical:
-
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{verbatim}
 sns.stripplot(x="day", y="total_bill", data=tips);
+\end{verbatim}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/categorical_9_0}
@@ -79,13 +92,20 @@ sns.stripplot(x="day", y="total_bill", data=tips);
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
-It’s also possible to add a nested categorical variable with the hue paramater. Above the color and position on the categorical axis are redundent, but now each provides information about one of the two variables:
+\begin{itemize}
+\item It’s also possible to add a nested categorical variable with the hue paramater. 
+\item Above the color and position on the categorical axis are redundent, but now each provides information about one of the two variables:
+\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
+\begin{verbatim}
 sns.stripplot(x="day", y="total_bill", hue="time", data=tips);
+\end{verbatim}
+
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{images/categorical_11_0}
@@ -95,7 +115,10 @@ sns.stripplot(x="day", y="total_bill", hue="time", data=tips);
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
+\begin{verbatim}
 sns.stripplot(x="size", y="total_bill", data=tips.sort("size"));
+\end{verbatim}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/categorical_13_0}
@@ -106,8 +129,15 @@ sns.stripplot(x="size", y="total_bill", data=tips.sort("size"));
 \frametitle{Seaborn Workshop}
 \large
 With these plots, it’s often helpful to put the categorical variable on the vertical axis (this is particularly useful when the category names are relatively long or there are many categories):
-
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{verbatim}
 sns.stripplot(x="total_bill", y="day", hue="time", data=tips);
+\end{verbatim}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/categorical_15_0}
@@ -118,12 +148,22 @@ sns.stripplot(x="total_bill", y="day", hue="time", data=tips);
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
-\noindent \textbf{Boxplots}
-At a certain point, the categorical scatterplot approach becomes limited in the information it can provide about the distribution of values within each category. There are several ways to summarize this information in ways that facilitate easy comparisons across the category levels.
+\noindent \textbf{Boxplots}\\
+\begin{itemize}
+\item At a certain point, the categorical scatterplot approach becomes limited in the information it can provide about the distribution of values within each category. 
+\item There are several ways to summarize this information in ways that facilitate easy comparisons across the category levels.
+\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
-The first is the familiar \texttt{boxplot()}. This kind of plot shows the three quartile values of the distribution along with extreme values. The “whiskers” extend to points that lie within 1.5 IQRs of the lower and upper quartile, and then observations that fall outside this range are displayed independently. Importantly, this means that each value in the boxplot corresponds to an actual observation in the data:
+\large
+	\begin{itemize}
+\item The first is the familiar \texttt{boxplot()}. This kind of plot shows the three quartile values of the distribution along with extreme values.
+\item The “whiskers” extend to points that lie within 1.5 IQRs of the lower and upper quartile, and then observations that fall outside this range are displayed independently. 
+\item Importantly, this means that each value in the boxplot corresponds to an actual observation in the data:
+	\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -154,7 +194,17 @@ sns.violinplot(x="total_bill", y="day", hue="time", data=tips);
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
-This approach uses the kernel density estimate to provide a better description of the distribution of values. Additionally, the quartile and whikser values from the boxplot are shown inside the violin. Because the violinplot uses a KDE, there are some other parameters that may need tweaking, adding some complexity relative to the straightforward boxplot:
+\begin{itemize}
+\item This approach uses the kernel density estimate to provide a better description of the distribution of values.
+\item Additionally, the quartile and whikser values from the boxplot are shown inside the violin. 
+\item Because the violinplot uses a KDE, there are some other parameters that may need tweaking, adding some complexity relative to the straightforward boxplot:
+\end{itemize}
+
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
 \begin{verbatim}
 sns.violinplot(x="total_bill", y="day", hue="time", data=tips,
 bw=.1, scale="count", scale_hue=False);
@@ -198,7 +248,7 @@ split=True, inner="stick", palette="Set3");
 %====================================%
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
-It can also be useful to combine stripplot() with violinplot() or boxplot() to show each observation along with a summary of the distribution:
+It can also be useful to combine \texttt{stripplot()} with \texttt{violinplot()} or \texttt{boxplot()} to show each observation along with a summary of the distribution:
 \begin{verbatim}
 sns.violinplot(x="day", y="total_bill", data=tips, inner=None)
 sns.stripplot(x="day", y="total_bill", data=tips, jitter=True, size=4);
@@ -207,6 +257,6 @@ sns.stripplot(x="day", y="total_bill", data=tips, jitter=True, size=4);
 \centering
 \includegraphics[width=0.7\linewidth]{images/categorical_27_0}
 \end{figure}
-
-
 \end{frame}
+%============================================= %
+\end{document}

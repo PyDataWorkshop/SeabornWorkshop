@@ -1,10 +1,27 @@
+\documentclass{beamer}
+
+\usepackage{framed}
+\usepackage{graphicx}
+
+\begin{document}
 %=============================================================%
 \section{Kernel density estimaton}
 \begin{frame}[fragile]
-	
-The kernel density estimate may be less familiar, but it can be a useful tool for plotting the shape of a distribution. Like the histogram, the KDE plots encodes the density of observations on one axis with height along the other axis:
+\begin{itemize}
+\item The kernel density estimate may be less familiar, but it can be a useful tool for plotting the shape of a distribution. 
+\item Like the histogram, the KDE plots encodes the density of observations on one axis with height along the other axis:
+\end{itemize}	
+
+
+
+\end{frame}
+%============================================================%
+\begin{frame}[fragile]
+	\large
+\begin{verbatim}
 
 sns.distplot(x, hist=False, rug=True);
+\end{verbatim}
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/distributions_14_0}
@@ -12,8 +29,14 @@ sns.distplot(x, hist=False, rug=True);
 \end{frame}
 %============================================================%
 \begin{frame}[fragile]
-Drawing a KDE is more computationally involved than drawing a histogram. What happens is that each observation is first replaced with a normal (Gaussian) curve centered at that value:
+	\begin{itemize}
+\item Drawing a KDE is more computationally involved than drawing a histogram.
+\item What happens is that each observation is first replaced with a normal (Gaussian) curve centered at that value:
+	\end{itemize}
 
+
+\end{frame}
+%========================================================== %
 \begin{frame}[fragile]
 \begin{framed}
 \begin{verbatim}
@@ -33,67 +56,123 @@ for x_i in x:
 \end{framed}
 \end{frame}
 %=============================================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{verbatim}
 sns.rugplot(x, color=".2", linewidth=3);
+\end{verbatim}
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/distributions_16_0}
 \end{figure}
 Next, these curves are summed to compute the value of the density at each point in the support grid. The resulting curve is then normalized so that the area under it is equal to 1:
 
+\end{frame}
+%===========================================================%
+\begin{frame}[fragile]
+\frametitle{Seaborn Workshop}
+	\large
+\begin{verbatim}
 density = np.sum(kernels, axis=0)
 density /= integrate.trapz(density, support)
 plt.plot(support, density);
+\end{verbatim}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/distributions_18_0}
 \end{figure}
 \end{frame}
 %===========================================================%
-\begin{frame}
-We can see that if we use the kdeplot() function in seaborn, we get the same curve. This function is used by distplot(), but it provides a more direct interface with easier access to other options when you just want the density estimate:
+\begin{frame}[fragile]
 
-sns.kdeplot(x, shade=True);
-../_images/distributions_20_0.png
+\frametitle{Seaborn Workshop}
+\large
+\begin{itemize}
+\item We can see that if we use the \texttt{kdeplot()} function in seaborn, we get the same curve. 
+\item This function is used by \texttt{distplot()}, but it provides a more direct interface with easier access to other options when you just want the density estimate:
+\end{itemize}
+
+
 \end{frame}
-\begin{frame}
-The bandwidth (bw) parameter of the KDE controls how tightly the estimation is fit to the data, much like the bin size in a histogram. It corresponds to the width of the kernels we plotted above. The default behavior tries to guess a good value using a common reference rule, but it may be helpful to try larger or smaller values:
+%=============================================== %
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{framed}
+\begin{verbatim}
+sns.kdeplot(x, shade=True);
+\end{verbatim}
+\end{framed}
 
-sns.kdeplot(x)
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/distributions_20_0}
+\end{figure}
+
+\end{frame}
+%=============================================== %
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{itemize}
+\item The bandwidth (bw) parameter of the KDE controls how tightly the estimation is fit to the data, much like the bin size in a histogram. 
+\item It corresponds to the width of the kernels we plotted above. \item The default behavior tries to guess a good value using a common reference rule, but it may be helpful to try larger or smaller values:
+\end{itemize}
+
+
+\end{frame}
+%===========================================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{verbatim}
+{sns.kdeplot(x)
 sns.kdeplot(x, bw=.2, label="bw: 0.2")
 sns.kdeplot(x, bw=2, label="bw: 2")
-plt.legend();
+plt.legend();...}
+\end{verbatim}
+
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{images/distributions_22_0}
-\caption{}
-\label{fig:distributions_22_0}
 \end{figure}
 
 \end{frame}
 %===========================================================%
-\begin{frame}
+\begin{frame}[fragile]
+		\frametitle{Seaborn Workshop}
 	\large
-As you can see above, the nature of the Gaussian KDE process means that estimation extends past the largest and smallest values in the dataset. It’s possible to control how far past the extreme values the curve is drawn with the cut parameter; however, this only influences how the curve is drawn and not how it is fit:
-
+\begin{itemize}
+\item As you can see above, the nature of the Gaussian KDE process means that estimation extends past the largest and smallest values in the dataset. 
+\item It’s possible to control how far past the extreme values the curve is drawn with the cut parameter; however, this only influences how the curve is drawn and not how it is fit:
+\end{itemize}
+\end{frame}
+%============================================================%
+\begin{frame}[fragile]
+		\frametitle{Seaborn Workshop}
 \begin{verbatim}
 sns.kdeplot(x, shade=True, cut=0)
 sns.rugplot(x);
 \end{verbatim}
-\end{frame}
-%============================================================%
-\begin{frame}[fragile]
+
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{images/distributions_24_0}
-\caption{}
-\label{fig:distributions_24_0}
 \end{figure}
 \end{frame}
 \section{Fitting parametric distributions}
 %============================================================%
 \begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
 \noindent \textbf{Fitting parametric distributions}\\
-You can also use distplot() to fit a parametric distribution to a dataset and visually evaluate how closely it corresponds to the observed data:
+You can also use \texttt{distplot()} to fit a parametric distribution to a dataset and visually evaluate how closely it corresponds to the observed data:
+
+\end{frame}
+%============================================================%
+\begin{frame}[fragile]
+		\frametitle{Seaborn Workshop}
 \begin{framed}
 \begin{verbatim}
 x = np.random.gamma(6, size=200)
@@ -101,15 +180,12 @@ sns.distplot(x, kde=False, fit=stats.gamma);
 \end{verbatim}
 \end{framed}
 
-\end{frame}
-%============================================================%
-\begin{frame}[fragile]
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{images/distributions_26_0}
 \caption{}
 \label{fig:distributions_26_0}
 \end{figure}
-
+\end{frame}
 
 \end{document}

@@ -1,3 +1,9 @@
+\documentclass{beamer}
+
+\usepackage{framed}
+\usepackage{graphicx}
+
+\begin{document}
 \section{Plotting pairwise relationships with PairGrid and pairplot()}
 %====================================%
 \begin{frame}[fragile]
@@ -16,7 +22,11 @@ Plotting pairwise relationships with PairGrid and pairplot()
 \large
 
 It’s important to understand the differences between a FacetGrid and a PairGrid. In the former, each facet shows the same relationship conditioned on different levels of other variables. In the latter, each plot shows a different relationship (although the upper and lower triangles will have mirrored plots). Using PairGrid can give you a very quick, very high-level summary of interesting relationships in your dataset.
-
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
 The basic usage of the class is very similar to FacetGrid. First you initialize the grid, then you pass plotting function to a map method and it will be called on each subplot. There is also a companion function, pairplot() that trades off some flexibility for faster plotting.
 \end{frame}
 %====================================%
@@ -47,7 +57,7 @@ g.map_offdiag(plt.scatter);
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
-\largeA very common way to use this plot colors the observations by a separate categorical variable. For example, the iris dataset has four measurements for each of three different species of iris flowers so you can see how they differ.
+\large A very common way to use this plot colors the observations by a separate categorical variable. For example, the iris dataset has four measurements for each of three different species of iris flowers so you can see how they differ.
 \begin{verbatim}
 g = sns.PairGrid(iris, hue="species")
 g.map_diag(plt.hist)
@@ -130,6 +140,7 @@ sns.pairplot(iris, hue="species", size=2.5);
 g = sns.pairplot(iris, hue="species", palette="Set2", diag_kind="kde", size=2.5)
 ../_images/axis_grids_58_0.png
 \end{verbatim}
+
 \end{frame}
 %====================================%
 \end{document}

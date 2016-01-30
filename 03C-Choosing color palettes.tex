@@ -7,13 +7,14 @@
 	
 \section{Sequential color palettes}
 %====================================%
-\begin{frame}[fragile]
+\begin{frame}
 \frametitle{Seaborn Workshop}
 \large
 
 \textbf{Sequential color palettes}
 \begin{itemize}
-\item The second major class of color palettes is called “sequential”. This kind of color mapping is appropriate when data range from relatively low or unintersting values to relatively high or interesting values. 
+\item The second major class of color palettes is called “sequential”. 
+\item This kind of color mapping is appropriate when data range from relatively low or unintersting values to relatively high or interesting values. 
 \item Although there are cases where you will want discrete colors in a sequential palette, it’s more common to use them as a colormap in functions like \texttt{kdeplot()} or \texttt{corrplot()} (along with similar matplotlib functions).
 \end{itemize}
 
@@ -26,6 +27,14 @@
 \begin{itemize}
 \item It’s common to see colormaps like jet (or other rainbow palettes) used in this case, becuase the range of hues gives the impression of providing additional information about the data. 
 \item However, colormaps with large hue shifts tend to introduce discontinuities that don’t exist in the data, and our visual system isn’t able to naturally map the rainbow to quantitative distinctions like “high” or “low”. 
+\end{itemize}
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	
+	\frametitle{Seaborn Workshop}
+	\large
+	\begin{itemize}
 \item The result is that these visualizations end up being more like a puzzle, and they obscure patterns in the data rather than revealing them. 
 \item The jet palette is particularly bad because the brightest colors, yellow and cyan, are used for intermediate data values. This has the effect of emphasizing uninteresting (and arbitrary) values while demphasizing the extremes.
 \end{itemize}
@@ -34,7 +43,10 @@
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
-For sequential data, it’s better to use palettes that have at most a relatively subtle shift in hue accompanied by a large shift in brightness and saturation. This approach will naturally draw the eye to the relatively important parts of the data.
+\begin{itemize}
+\item For sequential data, it’s better to use palettes that have at most a relatively subtle shift in hue accompanied by a large shift in brightness and saturation. 
+\item This approach will naturally draw the eye to the relatively important parts of the data.
+\end{itemize}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -42,6 +54,12 @@ For sequential data, it’s better to use palettes that have at most a relativel
 \large
 
 The Color Brewer library has a great set of these palettes. They’re named after the dominant color (or colors) in the palette.
+
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
 \begin{verbatim}
 sns.palplot(sns.color_palette("Blues"))
 \end{verbatim}
@@ -185,7 +203,7 @@ sns.palplot(sns.cubehelix_palette(8, start=2, rot=0, dark=0, light=.95, reverse=
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
-By default you just get a list of colors, like any other seaborn palette, but you can also return the palette as a colormap object that can be passed to seaborn or matplotlib functions using as_cmap=True.
+By default you just get a list of colors, like any other seaborn palette, but you can also return the palette as a colormap object that can be passed to seaborn or matplotlib functions using \texttt{as\_cmap=True}.
 
 \end{frame}
 %====================================%
@@ -294,8 +312,17 @@ sns.kdeplot(x, y, cmap=pal);
 \caption{}
 \label{fig:color_palettes_48_0}
 \end{figure}
-
-By default, the input can be any valid matplotlib color. Alternate interpretations are controlled by the input argument. Currently you can provide tuples in hls or husl space along with the default rgb, and you can also seed the palette with any valid xkcd color.
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+\begin{itemize}
+	\item
+By default, the input can be any valid matplotlib color. 
+\item Alternate interpretations are controlled by the input argument.
+\item  Currently you can provide tuples in hls or husl space along with the default rgb, and you can also seed the palette with any valid xkcd color.
+\end{itemize}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -326,5 +353,5 @@ sns.palplot(sns.dark_palette("muted purple", input="xkcd"))
 
 Note that the default input space for the interactive palette widgets is husl, which is different from the default for the function itself, but much more useful in this context.
 \end{frame}
-
+%=================================================================== %
 \end{document}

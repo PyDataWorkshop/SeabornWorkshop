@@ -11,8 +11,7 @@
 \frametitle{Seaborn Workshop}
 \large
 
-
-Diverging color palettes
+\noindent \textbf{Diverging color palettes}
 \begin{itemize}
 \item The third class of color palettes is called “diverging”. These are used for data where both large low and high values are interesting. 
 \item There is also usually a well-defined midpoint in the data. 
@@ -23,8 +22,9 @@ Diverging color palettes
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
-	
-The rules for choosing good diverging palettes are similar to good sequential palettes, except now you want to have two relatively subtle hue shifts from distinct starting hues that meet in an under-emphasized color at the midpoint. It’s also important that the starting values are of similar brightness and saturation.
+	\begin{itemize}
+		\item The rules for choosing good diverging palettes are similar to good sequential palettes, except now you want to have two relatively subtle hue shifts from distinct starting hues that meet in an under-emphasized color at the midpoint. \item It’s also important that the starting values are of similar brightness and saturation.
+		\end{itemize}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -33,7 +33,7 @@ The rules for choosing good diverging palettes are similar to good sequential pa
 \begin{itemize}
 \item It’s also important to emphasize here that using red and green should be avoided, as a substantial population of potential viewers will be unable to distinguish them.
 \item 
-It should not surprise you that the Color Brewer library comes with a set of well-choosen diverging colormaps.
+It should not surprise you that the \textbf{\textit{Color Brewer}} library comes with a set of well-choosen diverging colormaps.
 \end{itemize}
 
 \end{frame}
@@ -41,12 +41,24 @@ It should not surprise you that the Color Brewer library comes with a set of wel
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
-
+\begin{verbatim}
 sns.palplot(sns.color_palette("BrBG", 7))
-../_images/color_palettes_54_0.png
+\end{verbatim}
 
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/color_palettes_54_0}
+
+\end{figure}
+
+\begin{verbatim}
 sns.palplot(sns.color_palette("RdBu_r", 7))
-../_images/color_palettes_55_0.png
+\end{verbatim}
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/color_palettes_55_0}
+\end{figure}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -55,12 +67,25 @@ sns.palplot(sns.color_palette("RdBu_r", 7))
 
 
 Another good choice that is built into matplotlib is the coolwarm palette. Note that this colormap has less contrast between the middle values and the extremes.
-
-sns.palplot(sns.color_palette("coolwarm", 7))
-../_images/color_palettes_57_0.png
-Custom diverging palettes with diverging_palette()
 \end{frame}
 %====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	
+\begin{verbatim}
+sns.palplot(sns.color_palette("coolwarm", 7))
+\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/color_palettes_57_0}
+\end{figure}
+
+
+\end{frame}
+%====================================%
+\section{Custom diverging palettes with \texttt{diverging\_palette()}}
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
@@ -76,11 +101,26 @@ Custom diverging palettes with diverging_palette()
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
-	
+	\begin{verbatim}
 sns.palplot(sns.diverging_palette(220, 20, n=7))
-../_images/color_palettes_59_0.png
-sns.palplot(sns.diverging_palette(145, 280, s=85, l=25, n=7))
-../_images/color_palettes_60_0.png
+	\end{verbatim}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/color_palettes_59_0}
+\end{figure}
+
+
+
+\begin{verbatim}
+sns.palplot(sns.diverging_palette(145, 280, 
+            s=85, l=25, n=7))
+\end{verbatim}
+	
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/color_palettes_60_0}
+\end{figure}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -89,21 +129,32 @@ sns.palplot(sns.diverging_palette(145, 280, s=85, l=25, n=7))
 
 
 The sep argument controls the width of the separation between the two ramps in the middle region of the palette.
-
+\begin{verbatim}
 sns.palplot(sns.diverging_palette(10, 220, sep=80, n=7))
-../_images/color_palettes_62_0.png
+\end{verbatim}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/color_palettes_62_0}
+\end{figure}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
 It’s also possible to make a palette with the midpoint is dark rather than light.
+\begin{verbatim}
+sns.palplot(sns.diverging_palette(255, 133, 
+     l=60, n=7, center="dark"))
+\end{verbatim}
 
-sns.palplot(sns.diverging_palette(255, 133, l=60, n=7, center="dark"))
-../_images/color_palettes_64_0.png
-Changing default palettes with set_palette()
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/color_palettes_64_0}
+\end{figure}
 
 \end{frame}
+\section{Changing default palettes with set\_palette()}
 %====================================%
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
@@ -118,18 +169,31 @@ Changing default palettes with set_palette()
 %====================================%
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
-	\large
+	\Large
 \begin{framed}
 	\begin{verbatim}
 def sinplot(flip=1):
-x = np.linspace(0, 14, 100)
-for i in range(1, 7):
-plt.plot(x, np.sin(x + i * .5) * (7 - i) * flip)
-sns.set_palette("husl")
-sinplot()
+  x = np.linspace(0, 14, 100)
+  for i in range(1, 7):
+      y = np.sin(x + i * .5) * (7 - i)
+      plt.plot(x, y * flip)
+      sns.set_palette("husl")
+      sinplot()
 	\end{verbatim}
 \end{framed}
-../_images/color_palettes_67_0.png
+
+\end{frame}
+%====================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\large
+	
+	
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/color_palettes_67_0}
+\end{figure}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -138,9 +202,16 @@ sinplot()
 \begin{itemize}
 \item The \texttt{color\_palette()} function can also be used in a with statement to temporarily change the color palette.
 \end{itemize}
+\begin{verbatim}
+
 with sns.color_palette("PuBuGn_d"):
-    sinplot()
-../_images/color_palettes_69_0.png
+sinplot()
+\end{verbatim}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/color_palettes_67_0}
+\end{figure}.png
 \end{frame}
 %====================================%
 

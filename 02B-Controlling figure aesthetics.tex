@@ -7,8 +7,13 @@
 %====================================%
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
-	\large Some plots benefit from offsetting the spines away from the data, which can also be done when calling despine(). When the ticks don’t cover the whole range of the axis, the trim parameter will limit the range of the surviving spines.
+	\large 
+	
+	\begin{itemize}
+\item Some plots benefit from offsetting the spines away from the data, which can also be done when calling \texttt{despine()}. 
+\item When the ticks don’t cover the whole range of the axis, the trim parameter will limit the range of the surviving spines.
 
+	\end{itemize}
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -22,16 +27,15 @@ sns.despine(offset=10, trim=True);
 \begin{figure}
 \centering
 \includegraphics[width=0.7\linewidth]{images/aesthetics_23_0}
-\caption{}
-\label{fig:aesthetics_23_0}
 \end{figure}
 
-You can also control which spines are removed with additional arguments to despine():
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
+You can also control which spines are removed with additional arguments to \texttt{despine()}:
 \begin{verbatim}
 sns.set_style("whitegrid")
 sns.boxplot(data=data, palette="deep")
@@ -40,7 +44,7 @@ sns.despine(left=True)
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\linewidth]{images/aesthetics_25_0}
+\includegraphics[width=0.6\linewidth]{images/aesthetics_25_0}
 \caption{}
 \label{fig:aesthetics_25_0}
 \end{figure}
@@ -80,8 +84,11 @@ sinplot(-1)
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
-\noindent \textbf{Overriding elements of the seaborn styles}
-If you want to customize the seaborn styles, you can pass a dictionary of parameters to the rc argument of \texttt{axes\_style()} and \texttt{set\_style()}. 
+\noindent \textbf{Overriding elements of the seaborn styles}\\
+\begin{itemize}
+\item If you want to customize the seaborn styles, you can pass a dictionary of parameters to the \texttt{rc} argument of \texttt{axes\_style()} and \texttt{set\_style()}. 
+\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -129,8 +136,7 @@ sinplot()
 \end{figure}
 
 \end{frame}
-\section{
-	Scaling plot elements with plotting\_context() and set\_context()}
+\section{Scaling plot elements with plotting\_context() and set\_context()}
 %====================================%
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
@@ -145,12 +151,15 @@ sinplot()
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
-First let’s reset the default parameters by calling set():
+First let’s reset the default parameters by calling \texttt{set()}:
 \begin{verbatim}
 sns.set()
 \end{verbatim}
+\begin{itemize}
+\item The four preset contexts, in order of relative size, are paper, notebook, talk, and poster.
+\item The notebook style is the default, and was used in the plots above.
+\end{itemize}
 
-The four preset contexts, in order of relative size, are paper, notebook, talk, and poster. The notebook style is the default, and was used in the plots above.
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -213,7 +222,11 @@ sinplot()
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
 	\large
-You can also independently scale the size of the font elements when changing the context. (This option is also available through the top-level set() function).
+	\begin{itemize}
+\item You can also independently scale the size of the font elements when changing the context. 
+\item This option is also available through the top-level \texttt{set()} function.
+	\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]

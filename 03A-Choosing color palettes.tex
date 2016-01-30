@@ -40,8 +40,13 @@ np.random.seed(sum(map(ord, "palettes")))
 \frametitle{Seaborn Workshop}
 \large
 
-\textbf{Building color palettes with \texttt{color\_palette()}}
-The most important function for working with discrete color palettes is \texttt{color\_palette()}. This function provides an interface to many (though not all) of the possible ways you can generate colors in seaborn, and it’s used internally by any function that has a palette argument (and in some cases for a color argument when multiple colors are needed).
+\textbf{Building color palettes with \texttt{color\_palette()}}\\
+\begin{itemize}
+\item The most important function for working with discrete color palettes is \texttt{color\_palette()}.
+\item  This function provides an interface to many (though not all) of the possible ways you can generate colors in seaborn.
+\item it is used internally by any function that has a palette argument (and in some cases for a color argument when multiple colors are needed).
+\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -58,9 +63,13 @@ The most important function for working with discrete color palettes is \texttt{
 \begin{frame}[fragile]
 \frametitle{Seaborn Workshop}
 \large
-Finally, calling \texttt{color\_palette()} with no arguments will return the current default color cycle.
+\begin{itemize}
+\item Finally, calling \texttt{color\_palette()} with no arguments will return the current default color cycle.
 
-A corresponding function, set\_palette(), takes the same arguments and will set the default color cycle for all plots. You can also use \texttt{color\_palette()} in a with statement to temporarily change the default palette (see below).
+\item A corresponding function, set\_palette(), takes the same arguments and will set the default color cycle for all plots. 
+\item You can also use \texttt{color\_palette()} in a with statement to temporarily change the default palette (see below).
+\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}[fragile]
@@ -144,7 +153,7 @@ sns.palplot(sns.hls_palette(8, l=.3, s=.8))
 \large
 \begin{itemize}
 \item However, because of the way the human visual system works, colors that are even “intensity” in terms of their RGB levels won’t necessarily look equally intense.
-\item  We perceive yellows and greens as relatively brighter and blues as relatively darker, which can be a problem when aiming for uniformity with the hls system.
+\item  We perceive yellows and greens as relatively brighter and blues as relatively darker, which can be a problem when aiming for uniformity with the \texttt{hls} system.
 \end{itemize}
 
 \end{frame}
