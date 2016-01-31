@@ -58,8 +58,13 @@ sns.pairplot(tips, x_vars=["total_bill", "size"],
 %===========================================================%
 \begin{frame}[fragile]
 	\frametitle{Seaborn Workshop}
-	Like lmplot(), but unlike jointplot(), conditioning on an additional categorical variable is built into pairplot() using the hue parameter:
-\begin{verbatim}
+	Like \texttt{lmplot()}, but unlike \texttt{jointplot()}, conditioning on an additional categorical variable is built into \texttt{pairplot()} using the hue parameter:
+
+\end{frame}
+%===========================================================%
+\begin{frame}[fragile]
+	\frametitle{Seaborn Workshop}
+	\begin{verbatim}
 sns.pairplot(tips, x_vars=["total_bill", "size"], y_vars=["tip"],
              hue="smoker", size=5, aspect=.8, kind="reg");
 
