@@ -9,9 +9,13 @@
 \frametitle{Seaborn Workshop}
 \large
 \textbf{Installing and getting started}
-To install the released version of seaborn, you can use pip (i.e. pip install seaborn). It’s also possible to install the released version using conda (i.e. conda install seaborn), although this may lag behind the version availible from PyPI.
+\begin{itemize}
+\item To install the released version of seaborn, you can use \texttt{pip} (i.e. \texttt{pip install seaborn}). 
+\item It’s also possible to install the released version using conda (i.e. \texttt{conda install seaborn}), although this may lag behind the version availible from PyPI.
+\item 
+Alternatively, you can use pip to install the development version, with the command \texttt{pip install}
+\end{itemize}
 
-Alternatively, you can use pip to install the development version, with the command pip install
 \begin{verbatim}
 git+git://github.com/mwaskom/seaborn.git#egg=seaborn.
 \end{verbatim}  
@@ -19,7 +23,7 @@ git+git://github.com/mwaskom/seaborn.git#egg=seaborn.
 %====================================%
 \begin{frame}
 	\frametitle{Seaborn Workshop}
-	\large
+	\Large
 \begin{itemize}
 \item Another option would be to to clone the github repository and install with \texttt{pip install }. from the source directory. \item Seaborn itself is pure Python, so installation should be reasonably straightforward.
 
@@ -32,14 +36,16 @@ git+git://github.com/mwaskom/seaborn.git#egg=seaborn.
 \frametitle{Seaborn Workshop}
 \large
 \noindent \textbf{Dependencies}
-Python 2.7 or 3.3+
-Mandatory dependencies
-numpy
-scipy
-matplotlib
-pandas
-Recommended dependencies
-statsmodels
+\begin{itemize}
+\item Python 2.7 or 3.3+
+\item numpy
+\item scipy
+\item matplotlib
+\item pandas
+
+\item statsmodels (Recommended)
+\end{itemize}
+
 \end{frame}
 %====================================%
 \begin{frame}
@@ -72,6 +78,6 @@ statsmodels
 	
 \end{itemize}
 
-By convention, seaborn is abbreviated to sns on import.
+By convention, seaborn is abbreviated to \texttt{sns} on \texttt{import}.
 \end{frame}
 \end{document}
