@@ -23,10 +23,13 @@ barplot() (with kind="bar")
 countplot() (with kind="count")
 These families represent the data using different levels of granularity. When knowing which to use, you’ll have to think about the question that you want to answer. The unified API makes it easy to switch between different kinds and see your data from several perspectives.
 In this tutorial, we’ll mostly focus on the figure-level interface, catplot(). Remember that this function is a higher-level interface each of the functions above, so we’ll reference them when we show each kind of plot, keeping the more verbose kind-specific API documentation at hand.
+<pre><code>
 import seaborn as sns
 import matplotlib.pyplot as plt
 sns.set(style="ticks", color_codes=True)
-Categorical scatterplots
+</code></pre>
+
+##### Categorical scatterplots
 The default representation of the data in catplot() uses a scatterplot. There are actually two different categorical scatter plots in seaborn. They take different approaches to resolving the main challenge in representing categorical data with a scatter plot, which is that all of the points belonging to one category would fall on the same position along the axis corresponding to the categorical variable. The approach used by stripplot(), which is the default “kind” in catplot() is to adjust the positions of points on the categorical axis with a small amount of random “jitter”:
 tips = sns.load_dataset("tips")
 sns.catplot(x="day", y="total_bill", data=tips);
@@ -50,9 +53,10 @@ sns.catplot(x="smoker", y="tip", order=["No", "Yes"], data=tips);
 We’ve referred to the idea of “categorical axis”. In these examples, that’s always corresponded to the horizontal axis. But it’s often helpful to put the categorical variable on the vertical axis (particularly when the category names are relatively long or there are many categories). To do this, swap the assignment of variables to axes:
 sns.catplot(x="total_bill", y="day", hue="time", kind="swarm", data=tips);
  
-Distributions of observations within categories
+####  Distributions of observations within categories
 As the size of the dataset grows,, categorical scatter plots become limited in the information they can provide about the distribution of values within each category. When this happens, there are several approaches for summarizing the distributional information in ways that facilitate easy comparisons across the category levels.
-Boxplots
+
+#### Boxplots
 The first is the familiar boxplot(). This kind of plot shows the three quartile values of the distribution along with extreme values. The “whiskers” extend to points that lie within 1.5 IQRs of the lower and upper quartile, and then observations that fall outside this range are displayed independently. This means that each value in the boxplot corresponds to an actual observation in the data.
 sns.catplot(x="day", y="total_bill", kind="box", data=tips);
  
@@ -69,7 +73,7 @@ diamonds = sns.load_dataset("diamonds")
 sns.catplot(x="color", y="price", kind="boxen",
             data=diamonds.sort_values("color"));
  
-Violinplots
+##### Violinplots
 A different approach is a violinplot(), which combines a boxplot with the kernel density estimation procedure described in the distributions tutorial:
 sns.catplot(x="total_bill", y="day", hue="time",
             kind="violin", data=tips);
@@ -92,7 +96,7 @@ It can also be useful to combine swarmplot() or striplot() with a box plot or vi
 g = sns.catplot(x="day", y="total_bill", kind="violin", inner=None, data=tips)
 sns.swarmplot(x="day", y="total_bill", color="k", size=3, data=tips, ax=g.ax);
  
-Statistical estimation within categories
+#### Statistical estimation within categories
 For other applications, rather than showing the distribution within each category, you might want to show an estimate of the central tendency of the values. Seaborn has two main ways to show this information. Importantly, the basic API for these functions is identical to that for the ones discussed above.
 Bar plots
 A familiar style of plot that accomplishes this goal is a bar plot. In seaborn, the barplot() function operates on a full dataset and applies a function to obtain the estimate (taking the mean by default). When there are multiple observations in each category, it also uses bootstrapping to compute a confidence interval around the estimate and plots that using error bars:
